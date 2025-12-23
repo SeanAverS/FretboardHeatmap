@@ -58,6 +58,23 @@ struct ContentView: View {
             }
             .frame(height: 280) // Fret Width
             .padding(.top, -45)
+            
+            
+            // Strings
+            let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
+            
+            VStack(spacing: 0) {
+                ForEach(0..<6, id: \.self) { index in
+                    Spacer()
+                    
+                    Rectangle()
+                        .fill(Color(white: 0.6))
+                        .frame(height: strings[index])
+                }
+                Spacer()
+            }
+            .frame(height: 350)
+            .padding(.top, -45)
         }
     }
 }
