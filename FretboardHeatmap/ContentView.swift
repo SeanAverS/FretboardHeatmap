@@ -40,19 +40,36 @@ struct ContentView: View {
                     .fill(Color(white: 0.9))
                     .frame(width: 10)
                 
-                // Fret Spacing
+                // Frets
                 ForEach(frets.indices, id: \.self) { index in
                     let fret = frets[index]
                     
-                    // Fret Wire
-                    HStack(spacing: 0) {
-                        Spacer().frame(width: fret)
+                    // Fret Dots
+                        ZStack {
+                            Spacer().frame(width: fret)
+                            
+                            // Single Dots (Frets 3, 5, 7, 9)
+                            if [2, 4, 6, 8].contains(index) {
+                                Circle()
+                                    .fill(Color(white: 0.7))
+                                    .frame(width: 20)
+                            }
+                            
+                            // Double Dots (Fret 12)
+                            if index == 11 {
+                                VStack(spacing: 80) { // between dots
+                                    Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                    Circle().fill(Color(white:0.7)).frame(width: 20)
+                                }
+                            }
+                        }
                         
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(width: 3)
+                    // Fret Wire
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(width: 3)
+                    
                     }
-                }
                 
                 Spacer()
             }
