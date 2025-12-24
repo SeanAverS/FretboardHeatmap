@@ -9,15 +9,33 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var activeMenu: String? = nil // "Chords" or "Scales" tracker
-    @State private var selectedChord: String? = nil // Current Selected Chord
+    @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     var body: some View {
         VStack(spacing: 0) {
             
-            ZStack {
-                // Background
-                Color.black.ignoresSafeArea()
+            // Top Menu
+            HStack(spacing: 40) {
+                Button(action: { 
+                    activeMenu = "Chords"
+                    selectedRoot = nil}) {
+                    Text("CHORDS")
+                        .font(.system(.headline))
+                        .foregroundColor(activeMenu == "Chords" ? .yellow : .white)
+                }
                 
+                Button(action: { 
+                    activeMenu = "Scales"
+                    selectedRoot = nil }) {
+                    Text("SCALES")
+                        .font(.system(.headline))
+                        .foregroundColor(activeMenu == "Scales" ? .yellow : .white)
+                }
+            }
+            .padding(.bottom, 15)
+            
+            // Guitar Neck
+            ZStack {
                 // Fretboard Wood
                 RoundedRectangle(cornerRadius: 0)
                     .fill(
@@ -97,7 +115,47 @@ struct ContentView: View {
                 .frame(height: 350)
                 .padding(.top, -45)
             }
+            
+            Spacer()
+            
+            // Bottom Menu
+            if activeMenu == "Chords" {
+                HStack(spacing: 20) {
+                    let labels = ["G", "D", "C", "E", "A", "Am"]
+                    
+                    ForEach(labels, id: \.self) { label in
+                        Button(action: { selectedRoot = label }) {
+                            Text(label)
+                                .font(.system(.title3, design: .monospaced))
+                                .padding()
+                                .frame(width: 60, height: 50)
+                                .background(Color.white.opacity(0.1))
+                                .foregroundColor(selectedRoot == label ? .yellow : .white)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                .padding(.top, -30)
+            } else if activeMenu == "Scales" {
+                HStack(spacing: 20) {
+                    let labels = ["G", "D", "C", "E", "A", "Am"]
+                    
+                    ForEach(labels, id: \.self) { label in
+                        Button(action: { selectedRoot = label }) {
+                            Text(label)
+                                .font(.system(.title3, design: .monospaced))
+                                .padding()
+                                .frame(width: 60, height: 50)
+                                .background(Color.white.opacity(0.1))
+                                .foregroundColor(selectedRoot == label ? .yellow : .white)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                .padding(.top, -30)
+            }
         }
+        .background(Color.black.ignoresSafeArea())
     }
 }
 
