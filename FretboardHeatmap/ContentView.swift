@@ -16,9 +16,10 @@ struct ContentView: View {
             
             // Top Menu
             HStack(spacing: 40) {
-                Button(action: { 
+                Button(action: {
                     activeMenu = "Chords"
-                    selectedRoot = nil}) {
+                    selectedRoot = nil })
+                {
                     Text("CHORDS")
                         .font(.system(.headline))
                         .foregroundColor(activeMenu == "Chords" ? .yellow : .white)
@@ -26,7 +27,8 @@ struct ContentView: View {
                 
                 Button(action: { 
                     activeMenu = "Scales"
-                    selectedRoot = nil }) {
+                    selectedRoot = nil })
+                {
                     Text("SCALES")
                         .font(.system(.headline))
                         .foregroundColor(activeMenu == "Scales" ? .yellow : .white)
@@ -34,12 +36,12 @@ struct ContentView: View {
             }
             .padding(.bottom, 15)
             
+            
             // Guitar Neck
             ZStack {
                 // Fretboard Wood
                 RoundedRectangle(cornerRadius: 0)
-                    .fill(
-                        LinearGradient(
+                    .fill(LinearGradient(
                             colors: [
                                 Color(red: 0.1, green: 0, blue: 0.02), // Top
                                 Color(red: 0.25, green: 0.15, blue: 0.1), // Middle
@@ -47,12 +49,10 @@ struct ContentView: View {
                             ],
                             startPoint: .top,
                             endPoint: .bottom
-                        )
-                    )
+                        ))
                     .frame(height: 280) // Neck width
                     .padding(.top, -45)
-                
-                
+
                 // Frets (1-12)
                 let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47]
                 
@@ -90,10 +90,8 @@ struct ContentView: View {
                         Rectangle()
                             .fill(Color.gray)
                             .frame(width: 3)
-                        
                     }
-                    
-                    Spacer()
+                    Spacer() // Center Guitar Neck
                 }
                 .frame(height: 280) // Fret Width
                 .padding(.top, -45)
@@ -104,21 +102,20 @@ struct ContentView: View {
                 
                 VStack(spacing: 0) {
                     ForEach(0..<6, id: \.self) { index in
-                        Spacer()
-                        
+                        Spacer() // Center Vertical Strings
                         Rectangle()
                             .fill(Color(white: 0.6))
                             .frame(height: strings[index])
                     }
-                    Spacer()
+                    Spacer() // Center Horizontal Strings
                 }
                 .frame(height: 350)
                 .padding(.top, -45)
             }
             
-            Spacer()
+            Spacer() // Prevent default white background
             
-            // Bottom Menu
+            // Bottom Menu (put into one menu later)
             if activeMenu == "Chords" {
                 HStack(spacing: 20) {
                     let labels = ["G", "D", "C", "E", "A", "Am"]
