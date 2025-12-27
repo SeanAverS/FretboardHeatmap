@@ -4,6 +4,7 @@
 //
 //  Created by Sean Avery Suguitan on 2025-12-18.
 //
+//  The Main Hub / UI
 
 import SwiftUI
 
