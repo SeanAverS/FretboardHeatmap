@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var activeMenu: String? = nil // "Chords" or "Scales" tracker
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
+    let roots = ["G", "D", "C", "E", "A", "Am"]
+    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -115,36 +117,21 @@ struct ContentView: View {
             
             Spacer() // Prevent default white background
             
-            // Bottom Menu (put into one menu later)
-            if activeMenu == "Chords" {
+            // Bottom Menu
+            if let currentMenu = activeMenu { // "Chord" or "Scales" tracker
                 HStack(spacing: 20) {
-                    let labels = ["G", "D", "C", "E", "A", "Am"]
-                    
-                    ForEach(labels, id: \.self) { label in
-                        Button(action: { selectedRoot = label }) {
-                            Text(label)
-                                .font(.system(.title3, design: .monospaced))
-                                .padding()
-                                .frame(width: 60, height: 50)
+                    ForEach(roots, id: \.self) { root in
+                        Button(action: {
+                            withAnimation(.easeIn(duration: 0.2)) {
+                                selectedRoot = root
+                            }
+                        })
+                        {
+                            Text(root)
+                                .font(.system(.headline))
+                                .frame(width: 70, height: 50)
                                 .background(Color.white.opacity(0.1))
-                                .foregroundColor(selectedRoot == label ? .yellow : .white)
-                                .cornerRadius(8)
-                        }
-                    }
-                }
-                .padding(.top, -30)
-            } else if activeMenu == "Scales" {
-                HStack(spacing: 20) {
-                    let labels = ["G", "D", "C", "E", "A", "Am"]
-                    
-                    ForEach(labels, id: \.self) { label in
-                        Button(action: { selectedRoot = label }) {
-                            Text(label)
-                                .font(.system(.title3, design: .monospaced))
-                                .padding()
-                                .frame(width: 60, height: 50)
-                                .background(Color.white.opacity(0.1))
-                                .foregroundColor(selectedRoot == label ? .yellow : .white)
+                                .foregroundColor(selectedRoot == root ? .yellow : .white)
                                 .cornerRadius(8)
                         }
                     }
