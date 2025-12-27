@@ -118,7 +118,7 @@ struct ContentView: View {
             Spacer() // Prevent default white background
             
             // Bottom Menu
-            if let currentMenu = activeMenu { // "Chord" or "Scales" tracker
+            if activeMenu != nil { // "Chord" or "Scales" tracker
                 HStack(spacing: 20) {
                     ForEach(roots, id: \.self) { root in
                         Button(action: {
