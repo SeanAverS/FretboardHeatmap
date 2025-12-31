@@ -100,15 +100,42 @@ struct ContentView: View {
                 .padding(.top, -45)
                 
                 
-                // Strings
+                // Strings / Heatmap Logic
                 let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
                 
                 VStack(spacing: 0) {
                     ForEach(0..<6, id: \.self) { index in
                         Spacer() // Center Vertical Strings
-                        Rectangle()
-                            .fill(Color(white: 0.6))
-                            .frame(height: strings[index])
+                        
+                        ZStack(alignment: .leading) {
+                            // Strings
+                            Rectangle()
+                                .fill(Color(white: 0.6))
+                                .frame(height: strings[index])
+                            
+                            // HeatMap
+                                .overlay(alignment: .leading) { // dont alter string size
+                                    if let root = selectedRoot {
+                                        // get fret positions
+                                        let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu)
+                                        
+                                        // calculate fret positions
+                                        if let targetFret = currentMap[index] {
+                                            let centerOfFret = frets.prefix(targetFret).reduce(0, +) - (frets[targetFret-1] / 2)
+                                            //  targetFrets rightmost edge -  targetFrets width in half (centers the edge)
+                                            
+                                            // display fret positions
+                                            Circle()
+                                                .fill(Color.yellow)
+                                                .frame(width: 24, height: 24)
+                                                .shadow(color: .yellow.opacity(0.7), radius: 6)
+                                                .offset(x: centerOfFret + 10 - 12)
+                                            // + nutWidth - Circles rightmost edge (centers the dot)
+                                                .transition(.opacity.combined(with: .scale))
+                                        }
+                                    }
+                                }
+                        }
                     }
                     Spacer() // Center Horizontal Strings
                 }
