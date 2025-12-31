@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var activeMenu: String? = nil // "Chords" or "Scales" tracker
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
-    let roots = ["G", "D", "C", "E", "A", "Am"]
+    let roots = ["G", "D", "C", "E", "A"]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -116,22 +116,37 @@ struct ContentView: View {
                             // HeatMap
                                 .overlay(alignment: .leading) { // dont alter string size
                                     if let root = selectedRoot {
-                                        // get fret positions
+                                        // get fret positions for all strings
                                         let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu)
                                         
-                                        // calculate fret positions
-                                        if let targetFret = currentMap[index] {
-                                            let centerOfFret = frets.prefix(targetFret).reduce(0, +) - (frets[targetFret-1] / 2)
-                                            //  targetFrets rightmost edge -  targetFrets width in half (centers the edge)
+                                        // get fret positions for current string
+                                        if let fretList = currentMap[index] {
                                             
-                                            // display fret positions
-                                            Circle()
-                                                .fill(Color.yellow)
-                                                .frame(width: 24, height: 24)
-                                                .shadow(color: .yellow.opacity(0.7), radius: 6)
-                                                .offset(x: centerOfFret + 10 - 12)
-                                            // + nutWidth - Circles rightmost edge (centers the dot)
-                                                .transition(.opacity.combined(with: .scale))
+                                            // process each fret on current string
+                                            ForEach(fretList, id: \.self) { targetFret in
+                                                if targetFret > 0 && targetFret <= frets.count {
+                                                    
+                                                    let woodDistance = frets.prefix(targetFret).reduce(0, +)
+                                                    // total width from fret 1 to current fret
+                                                    
+                                                    let wireOffset = CGFloat(targetFret) * 3
+                                                    // account for fret 1 to current fret wire widths
+                                                    
+                                                    // calculate center of current fret
+                                                    let thisFretWidth = frets[targetFret - 1]
+                                                    let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
+                                                        // - half of current frets rightmost edge
+                                                    
+                                                    // display fret positions
+                                                    Circle()
+                                                        .fill(Color.yellow)
+                                                        .frame(width: 24, height: 24)
+                                                        .shadow(color: .yellow.opacity(0.7), radius: 6)
+                                                        .offset(x: centerOfWood + 10 - 12 - 1.5)
+                                                    // + nutWidth - Circle rightmost edge - Wires rightmost edge
+                                                        .transition(.opacity.combined(with: .scale))
+                                                }
+                                            }
                                         }
                                     }
                                 }
