@@ -138,10 +138,12 @@ struct ContentView: View {
                                                         // - half of current frets rightmost edge
                                                     
                                                     // display fret positions
+                                                    let isRootNote = HighlightRootNote.check(root: root, string: index, fret: targetFret)
+                                                    
                                                     Circle()
-                                                        .fill(Color.yellow)
+                                                        .fill(isRootNote ? Color.red : Color.yellow)
                                                         .frame(width: 24, height: 24)
-                                                        .shadow(color: .yellow.opacity(0.7), radius: 6)
+                                                        .shadow(color: (isRootNote ? Color.red : Color.yellow).opacity(0.7), radius: 6)
                                                         .offset(x: centerOfWood + 10 - 12 - 1.5)
                                                     // + nutWidth - Circle rightmost edge - Wires rightmost edge
                                                         .transition(.opacity.combined(with: .scale))
