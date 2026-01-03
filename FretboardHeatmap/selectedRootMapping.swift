@@ -15,7 +15,7 @@ struct SelectedRootMapping {
     
     static func getFretMap(for root: String, mode: String?) -> [Int: [Int]] {
         if mode == "Chords" {
-            switch root {
+            switch root { // [string: [fret]
             case "G":  return [0: [3], 4: [2], 5: [3]]
             case "D":  return [0: [2], 1: [3], 2: [2]]
             case "C":  return [1: [1], 3: [2], 4: [3]]
@@ -26,7 +26,7 @@ struct SelectedRootMapping {
         }
         
         if mode == "Scales" {
-            switch root {
+            switch root { // [string: [fret1,fret2..] 
             case "G":
                 return [0: [0, 3], 1: [0, 2], 2: [0, 2], 3: [0, 2], 4: [0, 2], 5: [0, 3]]
                 
