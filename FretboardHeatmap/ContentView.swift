@@ -168,7 +168,11 @@ struct ContentView: View {
                     ForEach(roots, id: \.self) { root in
                         Button(action: {
                             withAnimation(.easeIn(duration: 0.2)) {
-                                selectedRoot = root
+                                if selectedRoot == root {
+                                    selectedRoot = nil
+                                } else {
+                                    selectedRoot = root
+                                }
                             }
                         })
                         {
