@@ -185,6 +185,9 @@ struct ContentView: View {
             }
         }
         .background(Color.black.ignoresSafeArea())
+        
+        .sensoryFeedback(.selection, trigger: activeMenu)
+        .sensoryFeedback(.selection, trigger: selectedRoot)
     }
 }
 
