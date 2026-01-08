@@ -70,24 +70,24 @@ struct ContentView: View {
                         let fret = frets[index]
                         
                         // Fret Dots
-                        ZStack {
-                            Spacer().frame(width: fret)
-                            
-                            // Single Dots (Frets 3, 5, 7, 9)
-                            if [2, 4, 6, 8].contains(index) {
-                                Circle()
-                                    .fill(Color(white: 0.7))
-                                    .frame(width: 20)
-                            }
-                            
-                            // Double Dots (Fret 12)
-                            if index == 11 {
-                                VStack(spacing: 80) { // between dots
-                                    Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                    Circle().fill(Color(white:0.7)).frame(width: 20)
+                        Color.clear
+                            .frame(width: fret)
+                            .overlay {
+                                // Single Dots (Frets 3, 5, 7, 9)
+                                if [2, 4, 6, 8].contains(index) {
+                                    Circle()
+                                        .fill(Color(white: 0.7))
+                                        .frame(width: 20)
+                                }
+                                
+                                // Double Dots (Fret 12)
+                                if index == 11 {
+                                    VStack(spacing: 80) { // between dots
+                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                    }
                                 }
                             }
-                        }
                         
                         // Fret Wire
                         Rectangle()
