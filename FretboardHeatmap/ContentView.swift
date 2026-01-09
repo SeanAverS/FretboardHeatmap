@@ -28,7 +28,7 @@ struct ContentView: View {
                         .foregroundColor(activeMenu == "Chords" ? .yellow : .white)
                 }
                 
-                Button(action: { 
+                Button(action: {
                     activeMenu = "Scales"
                     selectedRoot = nil })
                 {
@@ -45,17 +45,17 @@ struct ContentView: View {
                 // Fretboard Wood
                 RoundedRectangle(cornerRadius: 0)
                     .fill(LinearGradient(
-                            colors: [
-                                Color(red: 0.1, green: 0, blue: 0.02), // Top
-                                Color(red: 0.25, green: 0.15, blue: 0.1), // Middle
-                                Color(red: 0.1, green: 0.05, blue: 0.02)  // Bottom
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ))
+                        colors: [
+                            Color(red: 0.1, green: 0, blue: 0.02), // Top
+                            Color(red: 0.25, green: 0.15, blue: 0.1), // Middle
+                            Color(red: 0.1, green: 0.05, blue: 0.02)  // Bottom
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ))
                     .frame(height: 280) // Neck width
                     .padding(.top, -45)
-
+                
                 // Frets (1-12)
                 let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47]
                 
@@ -107,50 +107,50 @@ struct ContentView: View {
                     ForEach(0..<6, id: \.self) { index in
                         Spacer() // Center Vertical Strings
                         
-                            // Strings
-                            Rectangle()
-                                .fill(Color(white: 0.6))
-                                .frame(height: strings[index])
-                            
-                            // HeatMap
-                                .overlay(alignment: .leading) { // dont alter string size
-                                    if let root = selectedRoot {
-                                        // get fret positions for all strings
-                                        let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu)
+                        // Strings
+                        Rectangle()
+                            .fill(Color(white: 0.6))
+                            .frame(height: strings[index])
+                        
+                        // HeatMap
+                            .overlay(alignment: .leading) { // dont alter string size
+                                if let root = selectedRoot {
+                                    // get fret positions for all strings
+                                    let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu)
+                                    
+                                    // get fret positions for current string
+                                    if let fretList = currentMap[index] {
                                         
-                                        // get fret positions for current string
-                                        if let fretList = currentMap[index] {
-                                            
-                                            // process each fret on current string
-                                            ForEach(fretList, id: \.self) { targetFret in
-                                                if targetFret > 0 && targetFret <= frets.count {
-                                                    
-                                                    let woodDistance = frets.prefix(targetFret).reduce(0, +)
-                                                    // total width from fret 1 to current fret
-                                                    
-                                                    let wireOffset = CGFloat(targetFret) * 3
-                                                    // account for fret 1 to current fret wire widths
-                                                    
-                                                    // calculate center of current fret
-                                                    let thisFretWidth = frets[targetFret - 1]
-                                                    let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
-                                                        // - half of current frets rightmost edge
-                                                    
-                                                    // display fret positions
-                                                    let isRootNote = HighlightRootNote.check(root: root, string: index, fret: targetFret)
-                                                    
-                                                    Circle()
-                                                        .fill(isRootNote ? Color.red : Color.yellow)
-                                                        .frame(width: 24, height: 24)
-                                                        .shadow(color: (isRootNote ? Color.red : Color.yellow).opacity(0.7), radius: 6)
-                                                        .offset(x: centerOfWood + 10 - 12 - 1.5)
-                                                    // + nutWidth - Circle rightmost edge - Wires rightmost edge
-                                                        .transition(.opacity.combined(with: .scale))
-                                                }
+                                        // process each fret on current string
+                                        ForEach(fretList, id: \.self) { targetFret in
+                                            if targetFret > 0 && targetFret <= frets.count {
+                                                
+                                                let woodDistance = frets.prefix(targetFret).reduce(0, +)
+                                                // total width from fret 1 to current fret
+                                                
+                                                let wireOffset = CGFloat(targetFret) * 3
+                                                // account for fret 1 to current fret wire widths
+                                                
+                                                // calculate center of current fret
+                                                let thisFretWidth = frets[targetFret - 1]
+                                                let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
+                                                // - half of current frets rightmost edge
+                                                
+                                                // display fret positions
+                                                let isRootNote = HighlightRootNote.check(root: root, string: index, fret: targetFret)
+                                                
+                                                Circle()
+                                                    .fill(isRootNote ? Color.red : Color.yellow)
+                                                    .frame(width: 24, height: 24)
+                                                    .shadow(color: (isRootNote ? Color.red : Color.yellow).opacity(0.7), radius: 6)
+                                                    .offset(x: centerOfWood + 10 - 12 - 1.5)
+                                                // + nutWidth - Circle rightmost edge - Wires rightmost edge
+                                                    .transition(.opacity.combined(with: .scale))
                                             }
                                         }
                                     }
-                        }
+                                }
+                            }
                     }
                     Spacer() // Center Horizontal Strings
                 }
