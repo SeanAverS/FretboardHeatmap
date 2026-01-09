@@ -82,7 +82,7 @@ struct ContentView: View {
                                 
                                 // Double Dots (Fret 12)
                                 if index == 11 {
-                                    VStack(spacing: 80) { // between dots
+                                    VStack(spacing: 80) {
                                         Circle().fill(Color(white: 0.7)).frame(width: 20)
                                         Circle().fill(Color(white: 0.7)).frame(width: 20)
                                     }
@@ -107,7 +107,6 @@ struct ContentView: View {
                     ForEach(0..<6, id: \.self) { index in
                         Spacer() // Center Vertical Strings
                         
-                        ZStack(alignment: .leading) {
                             // Strings
                             Rectangle()
                                 .fill(Color(white: 0.6))
@@ -151,7 +150,6 @@ struct ContentView: View {
                                             }
                                         }
                                     }
-                                }
                         }
                     }
                     Spacer() // Center Horizontal Strings
@@ -166,13 +164,9 @@ struct ContentView: View {
             if activeMenu != nil { // "Chord" or "Scales" tracker
                 HStack(spacing: 20) {
                     ForEach(roots, id: \.self) { root in
-                        Button(action: {
+                        Button(action: { // deselect root
                             withAnimation(.easeIn(duration: 0.2)) {
-                                if selectedRoot == root {
-                                    selectedRoot = nil
-                                } else {
-                                    selectedRoot = root
-                                }
+                                selectedRoot = (selectedRoot == root) ? nil : root
                             }
                         })
                         {
