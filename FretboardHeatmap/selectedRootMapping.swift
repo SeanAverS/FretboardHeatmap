@@ -14,7 +14,7 @@ import Foundation
 struct SelectedRootMapping {
     
     static func getFretMap(for root: String, mode: String?) -> [Int: [Int]] {
-        if mode == "Chords" {
+        if mode == "Chords" { // Cowboy Chords
             switch root { // [string: [fret]
             case "G":  return [0: [3], 4: [2], 5: [3]]
             case "D":  return [0: [2], 1: [3], 2: [2]]
@@ -25,7 +25,7 @@ struct SelectedRootMapping {
             }
         }
         
-        if mode == "Scales" {
+        if mode == "Scales" {  // Major Pentatonic
             switch root { // [string: [frets...]
             case "G":
                 return [
