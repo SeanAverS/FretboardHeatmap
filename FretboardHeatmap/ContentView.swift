@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var activeMenu: String? = nil // "Chords" or "Scales" tracker
+    @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     let roots = ["G", "D", "C", "E", "A"]
@@ -20,21 +20,21 @@ struct ContentView: View {
             // Top Menu
             HStack(spacing: 40) {
                 Button(action: {
-                    activeMenu = "Chords"
+                    activeMenu = .chords
                     selectedRoot = nil })
                 {
                     Text("CHORDS")
                         .font(.system(.headline))
-                        .foregroundColor(activeMenu == "Chords" ? .yellow : .white)
+                        .foregroundColor(activeMenu == .chords ? .yellow : .white)
                 }
                 
                 Button(action: {
-                    activeMenu = "Scales"
+                    activeMenu = .scales
                     selectedRoot = nil })
                 {
                     Text("SCALES")
                         .font(.system(.headline))
-                        .foregroundColor(activeMenu == "Scales" ? .yellow : .white)
+                        .foregroundColor(activeMenu == .scales ? .yellow : .white)
                 }
             }
             .padding(.bottom, 15)

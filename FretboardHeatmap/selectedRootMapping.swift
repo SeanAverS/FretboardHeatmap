@@ -11,10 +11,15 @@
 
 import Foundation
 
+enum NavMode: String {
+    case chords
+    case scales
+}
+
 struct SelectedRootMapping {
     
-    static func getFretMap(for root: String, mode: String?) -> [Int: [Int]] {
-        if mode == "CHORDS" { // Cowboy Chords
+    static func getFretMap(for root: String, mode: NavMode?) -> [Int: [Int]] {
+        if mode == .chords { // Cowboy Chords
             switch root { // [string: [fret]
             case "G":  return [0: [3], 4: [2], 5: [3]]
             case "D":  return [0: [2], 1: [3], 2: [2]]
@@ -25,7 +30,7 @@ struct SelectedRootMapping {
             }
         }
         
-        if mode == "SCALES" {  // Major Pentatonic
+        if mode == .scales {  // Major Pentatonic
             switch root { // [string: [frets...]
             case "G":
                 return [
