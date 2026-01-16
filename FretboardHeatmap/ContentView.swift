@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
+    @State private var noteLabels: Bool = false // Toggle note label display
     
     let roots = ["G", "D", "C", "E", "A"]
     
@@ -35,6 +36,12 @@ struct ContentView: View {
                     Text("SCALES")
                         .font(.system(.headline))
                         .foregroundColor(activeMenu == .scales ? .yellow : .white)
+                }
+                
+                Button(action: { noteLabels.toggle() }) {
+                    Text("LABELS")
+                        .font(.system(.headline))
+                        .foregroundColor(noteLabels ? .yellow : .white)
                 }
             }
             .padding(.bottom, 15)
@@ -143,6 +150,13 @@ struct ContentView: View {
                                                     .fill(isRootNote ? Color.red : Color.yellow)
                                                     .frame(width: 24, height: 24)
                                                     .shadow(color: (isRootNote ? Color.red : Color.yellow).opacity(0.7), radius: 6)
+                                                    .overlay {
+                                                            if noteLabels {
+                                                                Text(NoteLabelMapping.getNoteName(string: index, fret: targetFret))
+                                                                    .font(.system(size: 15, weight: .bold))
+                                                                    .foregroundColor(isRootNote ? .white : .black)
+                                                            }
+                                                        }
                                                     .offset(x: centerOfWood + 10 - 12 - 1.5)
                                                 // + nutWidth - Circle rightmost edge - Wires rightmost edge
                                                     .transition(.opacity.combined(with: .scale))
