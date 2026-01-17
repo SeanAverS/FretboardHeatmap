@@ -143,18 +143,18 @@ struct ContentView: View {
                                                 let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
                                                 // - half of current frets rightmost edge
                                                 
-                                                // display fret positions
+                                                // display fret positions / labels
                                                 let isRootNote = HighlightRootNote.check(root: root, string: index, fret: targetFret)
                                                 
                                                 Circle()
-                                                    .fill(isRootNote ? Color.red : Color.yellow)
+                                                    .fill(isRootNote ? Color.red : Color.blue)
                                                     .frame(width: 24, height: 24)
-                                                    .shadow(color: (isRootNote ? Color.red : Color.yellow).opacity(0.7), radius: 6)
+                                                    .shadow(color: (isRootNote ? Color.red : Color.blue).opacity(0.7), radius: 6)
                                                     .overlay {
                                                             if noteLabels {
                                                                 Text(NoteLabelMapping.getNoteName(string: index, fret: targetFret))
                                                                     .font(.system(size: 15, weight: .bold))
-                                                                    .foregroundColor(isRootNote ? .white : .black)
+                                                                    .foregroundColor(.white)
                                                             }
                                                         }
                                                     .offset(x: centerOfWood + 10 - 12 - 1.5)
