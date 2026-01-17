@@ -4,7 +4,10 @@
 //
 //  Created by Sean Avery Suguitan on 2026-01-14.
 //
-//  This labels each fret with their note name
+//  Returns the note name of each fret for the selected chord or scale root
+//  Parameters
+    // string: the current string
+    // fret: the current fret 
 
 import Foundation
 
