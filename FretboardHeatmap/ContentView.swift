@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             
-            // Top Menu
+            // MARK: Top Menu
             HStack(spacing: 40) {
                 Button(action: {
                     activeMenu = .chords
@@ -47,7 +47,7 @@ struct ContentView: View {
             .padding(.bottom, 15)
             
             
-            // Guitar Neck
+            // MARK: Guitar Neck / Frets
             ZStack {
                 // Fretboard Wood
                 RoundedRectangle(cornerRadius: 0)
@@ -107,7 +107,7 @@ struct ContentView: View {
                 .padding(.top, -45)
                 
                 
-                // Strings / Heatmap Logic
+                // MARK: - Guitar Strings / Heatmap
                 let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
                 
                 VStack(spacing: 0) {
@@ -119,7 +119,7 @@ struct ContentView: View {
                             .fill(Color(white: 0.6))
                             .frame(height: strings[index])
                         
-                        // HeatMap
+                        // MARK: Heatmap Logic
                             .overlay(alignment: .leading) { // dont alter string size
                                 if let root = selectedRoot {
                                     // get fret positions for all strings
@@ -174,7 +174,7 @@ struct ContentView: View {
             
             Spacer() // Prevent default white background
             
-            // Bottom Menu
+            // MARK: - Bottom Menu
             if activeMenu != nil { // "Chord" or "Scales" tracker
                 HStack(spacing: 20) {
                     ForEach(roots, id: \.self) { root in
