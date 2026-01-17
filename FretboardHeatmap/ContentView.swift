@@ -20,6 +20,12 @@ struct ContentView: View {
             
             // MARK: Top Menu
             HStack(spacing: 40) {
+                Button(action: { noteLabels.toggle() }) {
+                    Text("LABELS")
+                        .font(.system(.headline))
+                        .foregroundColor(noteLabels ? .yellow : .white)
+                }
+                
                 Button(action: {
                     activeMenu = .chords
                     selectedRoot = nil })
@@ -36,12 +42,6 @@ struct ContentView: View {
                     Text("SCALES")
                         .font(.system(.headline))
                         .foregroundColor(activeMenu == .scales ? .yellow : .white)
-                }
-                
-                Button(action: { noteLabels.toggle() }) {
-                    Text("LABELS")
-                        .font(.system(.headline))
-                        .foregroundColor(noteLabels ? .yellow : .white)
                 }
             }
             .padding(.bottom, 15)
