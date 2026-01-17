@@ -20,29 +20,41 @@ struct ContentView: View {
             
             // MARK: Top Menu
             HStack(spacing: 40) {
-                Button(action: { noteLabels.toggle() }) {
-                    Text("LABELS")
-                        .font(.system(.headline))
-                        .foregroundColor(noteLabels ? .yellow : .white)
-                }
-                
-                Button(action: {
-                    activeMenu = .chords
-                    selectedRoot = nil })
-                {
-                    Text("CHORDS")
-                        .font(.system(.headline))
-                        .foregroundColor(activeMenu == .chords ? .yellow : .white)
-                }
-                
-                Button(action: {
-                    activeMenu = .scales
-                    selectedRoot = nil })
-                {
-                    Text("SCALES")
-                        .font(.system(.headline))
-                        .foregroundColor(activeMenu == .scales ? .yellow : .white)
-                }
+                    // Labels
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            noteLabels.toggle()
+                        }
+                    })
+                    {
+                        Text("LABELS")
+                            .font(.system(.headline))
+                            .foregroundColor(noteLabels ? .yellow : .white)
+                    }
+                    
+                    // Chords
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            activeMenu = .chords
+                        }
+                    })
+                    {
+                        Text("CHORDS")
+                            .font(.system(.headline))
+                            .foregroundColor(activeMenu == .chords ? .yellow : .white)
+                    }
+                    
+                    // Scales
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            activeMenu = .scales
+                        }
+                    })
+                    {
+                        Text("SCALES")
+                            .font(.system(.headline))
+                            .foregroundColor(activeMenu == .scales ? .yellow : .white)
+                    }
             }
             .padding(.bottom, 15)
             
