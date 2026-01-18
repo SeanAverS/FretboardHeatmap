@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     @State private var noteLabels: Bool = false // Toggle note label display
+    @State private var selectedScaleType: String = "Maj Pentatonic" // Scale Dropdown
     
     let roots = ["G", "D", "C", "E", "A"]
     
@@ -19,7 +20,8 @@ struct ContentView: View {
         VStack(spacing: 0) {
             
             // MARK: Top Menu
-            HStack(spacing: 40) {
+            ZStack {
+                HStack(spacing: 40) {
                     // Labels
                     Button(action: {
                         withAnimation(.easeIn(duration: 0.2)) {
@@ -55,9 +57,19 @@ struct ContentView: View {
                             .font(.system(.headline))
                             .foregroundColor(activeMenu == .scales ? .yellow : .white)
                     }
+                }
+                
+                // Scale Dropdown
+                HStack {
+                    Spacer() // position far right
+                    
+                    if activeMenu == .scales {
+                        ScaleDropDown(selectedScaleType: $selectedScaleType)
+                    }
+                }
             }
             .padding(.bottom, 15)
-            
+            .frame(maxWidth: .infinity)
             
             // MARK: Guitar Neck / Frets
             ZStack {
