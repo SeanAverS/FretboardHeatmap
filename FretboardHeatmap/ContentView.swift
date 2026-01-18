@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
-    @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     @State private var noteLabels: Bool = false // Toggle note label display
+    @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
     @State private var selectedScaleType: String = "Maj Pentatonic" // Scale Dropdown
+    @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     let roots = ["G", "D", "C", "E", "A"]
     
