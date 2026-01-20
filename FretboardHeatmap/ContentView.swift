@@ -147,7 +147,7 @@ struct ContentView: View {
                             .overlay(alignment: .leading) { // dont alter string size
                                 if let root = selectedRoot {
                                     // get fret positions for all strings
-                                    let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu)
+                                    let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu, type: selectedScaleType)
                                     
                                     // get fret positions for current string
                                     if let fretList = currentMap[index] {
@@ -208,7 +208,7 @@ struct ContentView: View {
                             }
                         })
                         {
-                            Text(root)
+                            Text(selectedScaleType == "Min Pentatonic" && activeMenu == .scales ? "\(root)m" : root)
                                 .font(.system(.headline))
                                 .frame(width: 70, height: 50)
                                 .background(Color.white.opacity(0.1))

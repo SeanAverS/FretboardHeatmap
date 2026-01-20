@@ -18,7 +18,7 @@ enum NavMode: String {
 
 struct SelectedRootMapping {
     
-    static func getFretMap(for root: String, mode: NavMode?) -> [Int: [Int]] {
+    static func getFretMap(for root: String, mode: NavMode?, type: String) -> [Int: [Int]] {
         if mode == .chords { // Cowboy Chords
             switch root { // [string: [fret]
             case "G":  return [0: [3], 4: [2], 5: [3]]
