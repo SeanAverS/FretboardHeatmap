@@ -17,7 +17,9 @@ struct ScaleDropDown: View {
         Menu {
             ForEach(scales, id: \.self) { scale in
                 Button(scale) {
-                     selectedScaleType = scale
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        selectedScaleType = scale
+                    }
                 }
             }
         } label: {
