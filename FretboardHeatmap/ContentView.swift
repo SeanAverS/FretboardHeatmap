@@ -176,9 +176,9 @@ struct ContentView: View {
                                                     .shadow(color: (isRootNote ? Color.red : Color.blue).opacity(0.7), radius: 6)
                                                     .overlay {
                                                             if noteLabels {
-                                                                Text(NoteLabelMapping.getNoteName(string: index, fret: targetFret))
-                                                                    .font(.system(size: 15, weight: .bold))
-                                                                    .foregroundColor(.white)
+                                                                Text(getLabel(root: root, string: index, fret: targetFret))
+                                                                        .font(.system(size: 15, weight: .bold))
+                                                                        .foregroundColor(.white)
                                                             }
                                                         }
                                                     .offset(x: centerOfWood + 10 - 12 - 1.5)
@@ -224,6 +224,15 @@ struct ContentView: View {
         
         .sensoryFeedback(.selection, trigger: activeMenu)
         .sensoryFeedback(.selection, trigger: selectedRoot)
+
+    }
+    
+    private func getLabel(root: String, string: Int, fret: Int) -> String {
+        if activeMenu == .scales {
+            return NoteLabelMapping.getNoteName(string: string, fret: fret)
+        } else {
+            return SelectedRootMapping.getFingerNumber(root: root, string: string, fret: fret)
+        }
     }
 }
 

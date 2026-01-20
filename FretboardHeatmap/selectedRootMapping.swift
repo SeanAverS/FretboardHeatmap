@@ -141,4 +141,31 @@ struct SelectedRootMapping {
         }
         return [:]
     }
+    
+    static func getFingerNumber(root: String, string: Int, fret: Int) -> String {
+        switch root {
+        case "G":
+            if string == 5 && fret == 3 { return "2" }
+            if string == 4 && fret == 2 { return "1" }
+            if string == 0 && fret == 3 { return "3" }
+        case "D":
+            if string == 2 && fret == 2 { return "1" }
+            if string == 1 && fret == 3 { return "3" }
+            if string == 0 && fret == 2 { return "2" }
+        case "C":
+            if string == 4 && fret == 3 { return "3" }
+            if string == 3 && fret == 2 { return "2" }
+            if string == 1 && fret == 1 { return "1" }
+        case "E":
+            if string == 2 && fret == 1 { return "1" }
+            if string == 3 && fret == 2 { return "3" }
+            if string == 4 && fret == 2 { return "2" }
+        case "A":
+            if string == 3 && fret == 2 { return "1" }
+            if string == 2 && fret == 2 { return "2" }
+            if string == 1 && fret == 2 { return "3" }
+        default: return ""
+        }
+        return ""
+    }
 }
