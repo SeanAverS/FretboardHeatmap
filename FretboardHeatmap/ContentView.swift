@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     let roots = ["G", "D", "C", "E", "A"]
+    let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47] // 1-12
+    let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
+    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -88,8 +91,6 @@ struct ContentView: View {
                     .padding(.top, -45)
                 
                 // Frets (1-12)
-                let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47]
-                
                 HStack(spacing: 0) {
                     // Guitar Nut
                     Rectangle()
@@ -132,8 +133,6 @@ struct ContentView: View {
                 
                 
                 // MARK: - Guitar Strings / Heatmap
-                let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
-                
                 ZStack {
                     // Strings
                     VStack(spacing: 0) {
