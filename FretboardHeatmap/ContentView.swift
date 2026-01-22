@@ -134,66 +134,31 @@ struct ContentView: View {
                 // MARK: - Guitar Strings / Heatmap
                 let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
                 
-                VStack(spacing: 0) {
-                    ForEach(0..<6, id: \.self) { index in
-                        Spacer() // Center Vertical Strings
-                        
-                        // Strings
-                        Rectangle()
-                            .fill(Color(white: 0.6))
-                            .frame(height: strings[index])
-                        
-                        // MARK: Heatmap Logic
-                            .overlay(alignment: .leading) { // dont alter string size
-                                if let root = selectedRoot {
-                                    // get fret positions for all strings
-                                    let currentMap = SelectedRootMapping.getFretMap(for: root, mode: activeMenu, type: selectedScaleType)
-                                    
-                                    // get fret positions for current string
-                                    if let fretList = currentMap[index] {
-                                        
-                                        // process each fret on current string
-                                        ForEach(fretList, id: \.self) { targetFret in
-                                            if targetFret > 0 && targetFret <= frets.count {
-                                                
-                                                let woodDistance = frets.prefix(targetFret).reduce(0, +)
-                                                // total width from fret 1 to current fret
-                                                
-                                                let wireOffset = CGFloat(targetFret) * 3
-                                                // account for fret 1 to current fret wire widths
-                                                
-                                                // calculate center of current fret
-                                                let thisFretWidth = frets[targetFret - 1]
-                                                let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
-                                                // - half of current frets rightmost edge
-                                                
-                                                // display fret positions / labels
-                                                let isRootNote = HighlightRootNote.check(root: root, string: index, fret: targetFret)
-                                                
-                                                Circle()
-                                                    .fill(isRootNote ? Color.red : Color.blue)
-                                                    .frame(width: 24, height: 24)
-                                                    .shadow(color: (isRootNote ? Color.red : Color.blue).opacity(0.7), radius: 6)
-                                                    .overlay {
-                                                            if noteLabels {
-                                                                Text(getLabel(root: root, string: index, fret: targetFret))
-                                                                        .font(.system(size: 15, weight: .bold))
-                                                                        .foregroundColor(.white)
-                                                            }
-                                                        }
-                                                    .offset(x: centerOfWood + 10 - 12 - 1.5)
-                                                // + nutWidth - Circle rightmost edge - Wires rightmost edge
-                                                    .transition(.opacity.combined(with: .scale))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                ZStack {
+                    // Strings
+                    VStack(spacing: 0) {
+                        ForEach(0..<6, id: \.self) { index in
+                            Spacer() // Center Vertically
+                            Rectangle()
+                                .fill(Color(white: 0.6))
+                                .frame(height: strings[index])
+                        }
+                        Spacer() // Center Horizontally
                     }
-                    Spacer() // Center Horizontal Strings
+                    .frame(height: 350)
+                    .padding(.top, -45)
+                    
+                    // Heatmap
+                    HeatmapLogic(
+                        selectedRoot: selectedRoot,
+                        activeMenu: activeMenu,
+                        selectedScaleType: selectedScaleType,
+                        noteLabels: noteLabels,
+                        frets: frets
+                    )
+                    .frame(height: 350)
+                    .padding(.top, -45)
                 }
-                .frame(height: 350)
-                .padding(.top, -45)
             }
             
             Spacer() // Prevent default white background
