@@ -173,7 +173,7 @@ struct ContentView: View {
                         })
                         {
                             // Change Major to Minor chord labels vice versa
-                            Text(selectedScaleType == "Min Pentatonic" && activeMenu == .scales ? "\(root)m" : root)
+                            Text(rootLabel(for: root))
                                 .font(.system(.headline))
                                 .frame(width: 70, height: 50)
                                 .background(Color.white.opacity(0.1))
@@ -192,12 +192,21 @@ struct ContentView: View {
 
     }
     
+    // fret labels
     private func getLabel(root: String, string: Int, fret: Int) -> String {
         if activeMenu == .scales {
             return NoteLabelMapping.getNoteName(string: string, fret: fret)
         } else {
             return SelectedRootMapping.getFingerNumber(root: root, string: string, fret: fret)
         }
+    }
+    
+    // bottom menu labels
+    private func rootLabel(for root: String) -> String {
+        if activeMenu == .scales && selectedScaleType.hasPrefix("Min") {
+            return "\(root)m"
+        }
+        return root
     }
 }
 
