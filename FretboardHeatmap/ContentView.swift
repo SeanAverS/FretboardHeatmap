@@ -172,6 +172,7 @@ struct ContentView: View {
                             }
                         })
                         {
+                            // Change Major to Minor chord labels vice versa
                             Text(selectedScaleType == "Min Pentatonic" && activeMenu == .scales ? "\(root)m" : root)
                                 .font(.system(.headline))
                                 .frame(width: 70, height: 50)
