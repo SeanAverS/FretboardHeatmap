@@ -11,14 +11,14 @@ import SwiftUI
 struct ScaleDropDown: View {
     @Binding var selectedScaleType: String
 
-    let scales = ["Maj Pentatonic", "Min Pentatonic"]
+    static let scales = ["Maj Pentatonic", "Min Pentatonic"]
     
     var body: some View {
         Menu {
-            ForEach(scales, id: \.self) { scale in
+            ForEach(ScaleDropDown.scales, id: \.self) { scale in
                 Button(scale) {
                     withAnimation(.easeIn(duration: 0.2)) {
-                        selectedScaleType = scale
+                        self.selectedScaleType = scale
                     }
                 }
             }
