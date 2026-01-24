@@ -22,57 +22,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             
-            // MARK: Top Menu
-            ZStack {
-                HStack(spacing: 40) {
-                    // Labels
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            noteLabels.toggle()
-                        }
-                    })
-                    {
-                        Text("LABELS")
-                            .font(.system(.headline))
-                            .foregroundColor(noteLabels ? .yellow : .white)
-                    }
-                    
-                    // Chords
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            activeMenu = .chords
-                        }
-                    })
-                    {
-                        Text("CHORDS")
-                            .font(.system(.headline))
-                            .foregroundColor(activeMenu == .chords ? .yellow : .white)
-                    }
-                    
-                    // Scales
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            activeMenu = .scales
-                        }
-                    })
-                    {
-                        Text("SCALES")
-                            .font(.system(.headline))
-                            .foregroundColor(activeMenu == .scales ? .yellow : .white)
-                    }
-                }
-                
-                // Scale Dropdown
-                HStack {
-                    Spacer() // position far right
-                    
-                    if activeMenu == .scales {
-                        ScaleDropDown(selectedScaleType: $selectedScaleType)
-                    }
-                }
-            }
-            .padding(.bottom, 15)
-            .frame(maxWidth: .infinity)
+            topMenuArea
             
             // MARK: Guitar Neck / Frets
             ZStack {
@@ -191,6 +141,60 @@ struct ContentView: View {
         .sensoryFeedback(.selection, trigger: selectedRoot)
 
     }
+    
+    // MARK: Top Menu
+    private var topMenuArea: some View {
+            ZStack {
+                HStack(spacing: 40) {
+                    // Labels
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            noteLabels.toggle()
+                        }
+                    })
+                    {
+                        Text("LABELS")
+                            .font(.system(.headline))
+                            .foregroundColor(noteLabels ? .yellow : .white)
+                    }
+                    
+                    // Chords
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            activeMenu = .chords
+                        }
+                    })
+                    {
+                        Text("CHORDS")
+                            .font(.system(.headline))
+                            .foregroundColor(activeMenu == .chords ? .yellow : .white)
+                    }
+                    
+                    // Scales
+                    Button(action: {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            activeMenu = .scales
+                        }
+                    })
+                    {
+                        Text("SCALES")
+                            .font(.system(.headline))
+                            .foregroundColor(activeMenu == .scales ? .yellow : .white)
+                    }
+                }
+                
+                // Scale Dropdown
+                HStack {
+                    Spacer() // position far right
+                    
+                    if activeMenu == .scales {
+                        ScaleDropDown(selectedScaleType: $selectedScaleType)
+                    }
+                }
+            }
+            .padding(.bottom, 15)
+            .frame(maxWidth: .infinity)
+        }
     
     // fret labels
     private func getLabel(root: String, string: Int, fret: Int) -> String {
