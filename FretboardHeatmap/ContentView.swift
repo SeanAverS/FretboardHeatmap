@@ -25,8 +25,8 @@ struct ContentView: View {
             topMenuArea
             
             ZStack {
-               guitarNeckView
-               guitarStringsView   // Layer 1: The Metal
+               guitarNeckView 
+               guitarStringsView
                heatmapView
             }
             
