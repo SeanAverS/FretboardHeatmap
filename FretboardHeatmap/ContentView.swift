@@ -14,9 +14,9 @@ struct ContentView: View {
     @State private var selectedScaleType: String = "Maj Pentatonic" // Scale Dropdown
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
-    let roots = ["G", "D", "C", "E", "A"]
-    let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47] // 1-12
-    let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
+    static let roots = ["G", "D", "C", "E", "A"]
+    static let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47] // 1-12
+    static let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
     
     
     var body: some View {
@@ -98,8 +98,8 @@ struct ContentView: View {
                         .frame(width: 10)
                     
                     // Frets
-                    ForEach(frets.indices, id: \.self) { index in
-                        let fret = frets[index]
+                    ForEach(0..<12, id: \.self) { index in
+                        let fret = ContentView.frets[index]
                         
                         // Fret Dots
                         Color.clear
@@ -140,7 +140,7 @@ struct ContentView: View {
                             Spacer() // Center Vertically
                             Rectangle()
                                 .fill(Color(white: 0.6))
-                                .frame(height: strings[index])
+                                .frame(height: ContentView.strings[index])
                         }
                         Spacer() // Center Horizontally
                     }
@@ -153,7 +153,7 @@ struct ContentView: View {
                         activeMenu: activeMenu,
                         selectedScaleType: selectedScaleType,
                         noteLabels: noteLabels,
-                        frets: frets
+                        frets: ContentView.frets
                     )
                     .frame(height: 350)
                     .padding(.top, -45)
@@ -165,7 +165,7 @@ struct ContentView: View {
             // MARK: - Bottom Menu
             if activeMenu != nil { // "Chord" or "Scales" tracker
                 HStack(spacing: 20) {
-                    ForEach(roots, id: \.self) { root in
+                    ForEach(ContentView.roots, id: \.self) { root in
                         Button(action: { // deselect root
                             withAnimation(.easeIn(duration: 0.2)) {
                                 selectedRoot = (selectedRoot == root) ? nil : root
