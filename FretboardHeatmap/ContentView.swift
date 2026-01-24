@@ -26,34 +26,8 @@ struct ContentView: View {
             
             ZStack {
                guitarNeckView
-                
-
-                // MARK: - Guitar Strings / Heatmap
-                ZStack {
-                    // Strings
-                    VStack(spacing: 0) {
-                        ForEach(0..<6, id: \.self) { index in
-                            Spacer() // Center Vertically
-                            Rectangle()
-                                .fill(Color(white: 0.6))
-                                .frame(height: ContentView.strings[index])
-                        }
-                        Spacer() // Center Horizontally
-                    }
-                    .frame(height: 350)
-                    .padding(.top, -45)
-                    
-                    // Heatmap
-                    HeatmapLogic(
-                        selectedRoot: selectedRoot,
-                        activeMenu: activeMenu,
-                        selectedScaleType: selectedScaleType,
-                        noteLabels: noteLabels,
-                        frets: ContentView.frets
-                    )
-                    .frame(height: 350)
-                    .padding(.top, -45)
-                }
+               guitarStringsView   // Layer 1: The Metal
+               heatmapView
             }
             
             Spacer() // Prevent default white background
@@ -186,6 +160,34 @@ struct ContentView: View {
                 .padding(.top, -45)
             }
         }
+    
+    // MARK: Guitar Strings
+    private var guitarStringsView: some View {
+        VStack(spacing: 0) {
+            ForEach(0..<6, id: \.self) { index in
+                Spacer()
+                Rectangle()
+                    .fill(Color(white: 0.6))
+                    .frame(height: ContentView.strings[index])
+            }
+            Spacer()
+        }
+        .frame(height: 350)
+        .padding(.top, -45)
+    }
+    
+    // MARK: Heatmap
+    private var heatmapView: some View {
+        HeatmapLogic(
+            selectedRoot: selectedRoot,
+            activeMenu: activeMenu,
+            selectedScaleType: selectedScaleType,
+            noteLabels: noteLabels,
+            frets: ContentView.frets
+        )
+        .frame(height: 350)
+        .padding(.top, -45)
+    }
     
     // fret labels
     private func getLabel(root: String, string: Int, fret: Int) -> String {
