@@ -192,7 +192,7 @@ struct ContentView: View {
             }
         }
     
-    // fret labels
+    // MARK: get fretboard labels
     private func getLabel(root: String, string: Int, fret: Int) -> String {
         if activeMenu == .scales {
             return NoteLabelMapping.getNoteName(string: string, fret: fret)
@@ -201,7 +201,7 @@ struct ContentView: View {
         }
     }
     
-    // bottom menu labels
+    // MARK: get bottom menu labels
     private func rootLabel(for root: String) -> String {
         if activeMenu == .scales && selectedScaleType.hasPrefix("Min") {
             return "\(root)m"
