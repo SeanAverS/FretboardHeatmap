@@ -24,64 +24,10 @@ struct ContentView: View {
             
             topMenuArea
             
-            // MARK: Guitar Neck / Frets
             ZStack {
-                // Fretboard Wood
-                RoundedRectangle(cornerRadius: 0)
-                    .fill(LinearGradient(
-                        colors: [
-                            Color(red: 0.1, green: 0, blue: 0.02), // Top
-                            Color(red: 0.25, green: 0.15, blue: 0.1), // Middle
-                            Color(red: 0.1, green: 0.05, blue: 0.02)  // Bottom
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ))
-                    .frame(height: 280) // Neck width
-                    .padding(.top, -45)
+               guitarNeckView
                 
-                // Frets (1-12)
-                HStack(spacing: 0) {
-                    // Guitar Nut
-                    Rectangle()
-                        .fill(Color(white: 0.9))
-                        .frame(width: 10)
-                    
-                    // Frets
-                    ForEach(0..<12, id: \.self) { index in
-                        let fret = ContentView.frets[index]
-                        
-                        // Fret Dots
-                        Color.clear
-                            .frame(width: fret)
-                            .overlay {
-                                // Single Dots (Frets 3, 5, 7, 9)
-                                if [2, 4, 6, 8].contains(index) {
-                                    Circle()
-                                        .fill(Color(white: 0.7))
-                                        .frame(width: 20)
-                                }
-                                
-                                // Double Dots (Fret 12)
-                                if index == 11 {
-                                    VStack(spacing: 80) {
-                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                    }
-                                }
-                            }
-                        
-                        // Fret Wire
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(width: 3)
-                    }
-                    Spacer() // Center Guitar Neck
-                }
-                .frame(height: 280) // Fret Width
-                .padding(.top, -45)
-                
-                
+
                 // MARK: - Guitar Strings / Heatmap
                 ZStack {
                     // Strings
@@ -194,6 +140,51 @@ struct ContentView: View {
             }
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity)
+        }
+    
+    // MARK: Guitar Neck / Frets
+    private var guitarNeckView: some View {
+            ZStack {
+                // Fretboard Wood
+                RoundedRectangle(cornerRadius: 0)
+                    .fill(LinearGradient(
+                        colors: [
+                            Color(red: 0.1, green: 0, blue: 0.02),
+                            Color(red: 0.25, green: 0.15, blue: 0.1),
+                            Color(red: 0.1, green: 0.05, blue: 0.02)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ))
+                    .frame(height: 280)
+                    .padding(.top, -45)
+                
+                // Frets (1-12)
+                HStack(spacing: 0) {
+                    Rectangle().fill(Color(white: 0.9)).frame(width: 10) // Nut
+                    
+                    ForEach(0..<12, id: \.self) { index in
+                        let fret = ContentView.frets[index]
+                        Color.clear
+                            .frame(width: fret)
+                            .overlay {
+                                if [2, 4, 6, 8].contains(index) {
+                                    Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                }
+                                if index == 11 {
+                                    VStack(spacing: 80) {
+                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
+                                    }
+                                }
+                            }
+                        Rectangle().fill(Color.gray).frame(width: 3)
+                    }
+                    Spacer()
+                }
+                .frame(height: 280)
+                .padding(.top, -45)
+            }
         }
     
     // fret labels
