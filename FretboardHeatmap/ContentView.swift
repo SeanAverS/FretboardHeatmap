@@ -32,28 +32,7 @@ struct ContentView: View {
             
             Spacer() // Prevent default white background
             
-            // MARK: - Bottom Menu
-            if activeMenu != nil { // "Chord" or "Scales" tracker
-                HStack(spacing: 20) {
-                    ForEach(ContentView.roots, id: \.self) { root in
-                        Button(action: { // deselect root
-                            withAnimation(.easeIn(duration: 0.2)) {
-                                selectedRoot = (selectedRoot == root) ? nil : root
-                            }
-                        })
-                        {
-                            // Change Major to Minor chord labels vice versa
-                            Text(rootLabel(for: root))
-                                .font(.system(.headline))
-                                .frame(width: 70, height: 50)
-                                .background(Color.white.opacity(0.1))
-                                .foregroundColor(selectedRoot == root ? .yellow : .white)
-                                .cornerRadius(8)
-                        }
-                    }
-                }
-                .padding(.top, -30)
-            }
+            bottomMenuArea
         }
         .background(Color.black.ignoresSafeArea())
         
@@ -188,6 +167,30 @@ struct ContentView: View {
         .frame(height: 350)
         .padding(.top, -45)
     }
+    
+    // MARK: - Bottom Menu
+        @ViewBuilder
+        private var bottomMenuArea: some View {
+            if activeMenu != nil {
+                HStack(spacing: 20) {
+                    ForEach(ContentView.roots, id: \.self) { root in
+                        Button(action: {
+                            withAnimation(.easeIn(duration: 0.2)) {
+                                selectedRoot = (selectedRoot == root) ? nil : root
+                            }
+                        }) {
+                            Text(rootLabel(for: root))
+                                .font(.system(.headline))
+                                .frame(width: 70, height: 50)
+                                .background(Color.white.opacity(0.1))
+                                .foregroundColor(selectedRoot == root ? .yellow : .white)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                .padding(.top, -30)
+            }
+        }
     
     // fret labels
     private func getLabel(root: String, string: Int, fret: Int) -> String {
