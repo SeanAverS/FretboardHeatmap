@@ -15,9 +15,6 @@ struct ContentView: View {
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     static let roots = ["G", "D", "C", "E", "A"]
-    static let frets: [CGFloat] = [90, 85, 80, 75, 71, 67, 63, 60, 56, 53, 50, 47] // 1-12
-    static let strings: [CGFloat] = [0.8, 1.2, 1.8, 2.5, 3.2, 4.0] // high E to low E
-    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -117,7 +114,7 @@ struct ContentView: View {
                     Rectangle().fill(Color(white: 0.9)).frame(width: 10) // Nut
                     
                     ForEach(0..<12, id: \.self) { index in
-                        let fret = ContentView.frets[index]
+                        let fret = GuitarSpecs.frets[index]
                         Color.clear
                             .frame(width: fret)
                             .overlay {
@@ -147,7 +144,7 @@ struct ContentView: View {
                 Spacer()
                 Rectangle()
                     .fill(Color(white: 0.6))
-                    .frame(height: ContentView.strings[index])
+                    .frame(height: GuitarSpecs.strings[index])
             }
             Spacer()
         }
@@ -162,7 +159,7 @@ struct ContentView: View {
             activeMenu: activeMenu,
             selectedScaleType: selectedScaleType,
             noteLabels: noteLabels,
-            frets: ContentView.frets
+            frets: GuitarSpecs.frets
         )
         .frame(height: 350)
         .padding(.top, -45)
