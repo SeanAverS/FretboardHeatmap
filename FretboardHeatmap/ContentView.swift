@@ -176,8 +176,7 @@ struct ContentView: View {
                                 selectedRoot = (selectedRoot == root) ? nil : root
                             }
                         }) {
-                            Text(rootLabel(for: root))
-                                .font(.system(.headline))
+                            Text(LabelMapping.getBottomMenuLabels(for: root, activeMenu: activeMenu, selectedScaleType: selectedScaleType)).font(.system(.headline))
                                 .frame(width: 70, height: 50)
                                 .background(Color.white.opacity(0.1))
                                 .foregroundColor(selectedRoot == root ? .yellow : .white)
@@ -188,23 +187,6 @@ struct ContentView: View {
                 .padding(.top, -30)
             }
         }
-    
-    // MARK: get fretboard labels
-    private func getLabel(root: String, string: Int, fret: Int) -> String {
-        if activeMenu == .scales {
-            return NoteLabelMapping.getNoteName(string: string, fret: fret)
-        } else {
-            return SelectedRootMapping.getFingerNumber(root: root, string: string, fret: fret)
-        }
-    }
-    
-    // MARK: get bottom menu labels
-    private func rootLabel(for root: String) -> String {
-        if activeMenu == .scales && selectedScaleType.hasPrefix("Min") {
-            return "\(root)m"
-        }
-        return root
-    }
 }
 
 #Preview {

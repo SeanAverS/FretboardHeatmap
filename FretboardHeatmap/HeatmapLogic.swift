@@ -63,10 +63,12 @@ struct HeatmapLogic: View {
         let isRootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
         
         // non-root note label
-        let labelText = (activeMenu == .scales) ?
-            NoteLabelMapping.getNoteName(string: string, fret: fret) : // scales
-            SelectedRootMapping.getFingerNumber(root: root, string: string, fret: fret) // chords
-
+        let labelText = LabelMapping.getFretboardLabels(
+            activeMenu: activeMenu,
+            root: root,
+            string: string,
+            fret: fret
+        )
         Circle()
             .fill(isRootNote ? Color.red : Color.blue)
             .frame(width: 24, height: 24)
