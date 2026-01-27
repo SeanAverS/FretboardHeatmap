@@ -16,7 +16,7 @@ enum NavMode: String {
     case scales
 }
 
-struct SelectedRootMapping {
+struct FretPositions {
     
     static func getFretMap(for root: String, mode: NavMode?, type: String) -> [Int: [Int]] {
         if mode == .chords { // Cowboy Chords
