@@ -17,7 +17,7 @@ struct LabelMapping {
         fret: Int
     ) -> String {
         if activeMenu == .scales { // musical alphabet
-            return NoteLabelMapping.getNoteName(string: string, fret: fret)
+            return NoteAlphabet.getNoteName(string: string, fret: fret)
         } else { // finger positions
             return SelectedRootMapping.getFingerNumber(root: root, string: string, fret: fret)
         }
