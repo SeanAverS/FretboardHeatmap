@@ -11,7 +11,7 @@
 
 import Foundation
 
-struct NoteLabelMapping {
+struct NoteAlphabet {
     private static let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     private static let stringOffsets = [4, 11, 7, 2, 9, 4] // High E to Low E
     
