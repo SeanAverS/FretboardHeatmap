@@ -14,8 +14,6 @@ struct ContentView: View {
     @State private var selectedScaleType: String = "Maj Pentatonic" // Scale Dropdown
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
-    static let roots = ["G", "D", "C", "E", "A"]
-    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -170,7 +168,7 @@ struct ContentView: View {
         private var bottomMenuArea: some View {
             if activeMenu != nil {
                 HStack(spacing: 20) {
-                    ForEach(ContentView.roots, id: \.self) { root in
+                    ForEach(GuitarSpecs.roots, id: \.self) { root in
                         Button(action: {
                             withAnimation(.easeIn(duration: 0.2)) {
                                 selectedRoot = (selectedRoot == root) ? nil : root
