@@ -15,6 +15,27 @@ struct HeatmapLogic: View {
     let noteLabels: Bool
     let frets: [CGFloat]
     
+    // style fret positions
+    struct NoteCircle: View {
+        let nonRootNote: String
+        let rootNote: Bool
+        let noteLabels: Bool
+
+        var body: some View {
+            Circle()
+                .fill(rootNote ? Color.red : Color.blue)
+                .frame(width: 24, height: 24)
+            
+                .overlay {
+                    if noteLabels {
+                        Text(nonRootNote)
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                }
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             ForEach(0..<6, id: \.self) { stringIndex in
@@ -59,27 +80,11 @@ struct HeatmapLogic: View {
         let thisFretWidth = frets[fret - 1]
         let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
         
-        // root note label
-        let isRootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
+        // labels
+        let rootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
+        let nonRootNote = LabelMapping.getFretboardLabels(activeMenu: activeMenu, root: root, string: string, fret: fret)
         
-        // non-root note label
-        let labelText = LabelMapping.getFretboardLabels(
-            activeMenu: activeMenu,
-            root: root,
-            string: string,
-            fret: fret
-        )
-        Circle()
-            .fill(isRootNote ? Color.red : Color.blue)
-            .frame(width: 24, height: 24)
-            .shadow(color: (isRootNote ? Color.red : Color.blue).opacity(0.7), radius: 6)
-            .overlay {
-                if noteLabels {
-                    Text(labelText)
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.white)
-                }
-            }
+        NoteCircle(nonRootNote: nonRootNote, rootNote: rootNote, noteLabels: noteLabels)
             .offset(x: centerOfWood + 10 - 12 - 1.5)
             .transition(.opacity.combined(with: .scale))
     }
