@@ -24,7 +24,7 @@ struct HeatmapLogic: View {
         var body: some View {
             Circle()
                 .fill(rootNote ? Color.red : Color.blue)
-                .frame(width: 24, height: 24)
+                .frame(width: 24.0, height: 24.0)
             
                 .overlay {
                     if noteLabels {
@@ -75,17 +75,17 @@ struct HeatmapLogic: View {
     @ViewBuilder
     private func noteMarker(root: String, string: Int, fret: Int) -> some View {
         // center of fret
-        let woodDistance = frets.prefix(fret).reduce(0, +)
-        let wireOffset = CGFloat(fret) * 3
+        let woodDistance = frets.prefix(fret).reduce(0.0, +)
+        let wireOffset = CGFloat(fret) * 3.0
         let thisFretWidth = frets[fret - 1]
-        let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2)
+        let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2.0)
         
         // labels
         let rootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
         let nonRootNote = LabelMapping.getFretboardLabels(activeMenu: activeMenu, root: root, string: string, fret: fret)
         
         NoteCircle(nonRootNote: nonRootNote, rootNote: rootNote, noteLabels: noteLabels)
-            .offset(x: centerOfWood + 10 - 12 - 1.5)
+            .offset(x: centerOfWood + 10.0 - 12.0 - 1.5)
             .transition(.opacity.combined(with: .scale))
     }
 }
