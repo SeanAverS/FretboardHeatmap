@@ -108,15 +108,7 @@ struct ContentView: View {
                         Color.clear
                             .frame(width: fret)
                             .overlay {
-                                if [2, 4, 6, 8].contains(index) {
-                                    Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                }
-                                if index == 11 {
-                                    VStack(spacing: 80) {
-                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                        Circle().fill(Color(white: 0.7)).frame(width: 20)
-                                    }
-                                }
+                                fretInlays(for: index)
                             }
                         Rectangle().fill(Color.gray).frame(width: 3)
                     }
@@ -126,6 +118,20 @@ struct ContentView: View {
                 .padding(.top, -45)
             }
         }
+    // guitarNeckView Helper for fret inlays
+        @ViewBuilder
+    private func fretInlays(for index: Int) -> some View {
+        if [2, 4, 6, 8].contains(index) { // single dot
+            Circle()
+                .fill(Color(white: 0.7))
+                .frame(width: 20.0, height: 20.0)
+        } else if index == 11 { // double dot
+            VStack(spacing: 80.0) {
+                Circle().fill(Color(white: 0.7)).frame(width: 20.0)
+                Circle().fill(Color(white: 0.7)).frame(width: 20.0)
+            }
+        }
+    }
     
     // MARK: Guitar Strings
     private var guitarStringsView: some View {
