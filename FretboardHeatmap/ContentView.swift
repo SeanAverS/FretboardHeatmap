@@ -69,18 +69,18 @@ struct ContentView: View {
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity)
         }
-    
-        private func topMenuButton(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
-            Button(action: {
-                withAnimation(.easeIn(duration: 0.2)) {
-                    action()
-                }
-            }) {
-                Text(title)
-                    .font(.system(.headline))
-                    .foregroundColor(isSelected ? .yellow : .white)
+    // topMenuArea Helper for buttons
+    private func topMenuButton(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: {
+            withAnimation(.easeIn(duration: 0.2)) {
+                action()
             }
+        }) {
+            Text(title)
+                .font(.system(.headline))
+                .foregroundColor(isSelected ? .yellow : .white)
         }
+    }
     
     // MARK: Guitar Neck / Frets
     private var guitarNeckView: some View {
