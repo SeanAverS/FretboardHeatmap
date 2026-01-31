@@ -29,7 +29,7 @@ struct HeatmapLogic: View {
                 .overlay {
                     if noteLabels {
                         Text(nonRootNote)
-                            .font(.system(size: 15, weight: .bold))
+                            .font(.system(size: 15.0, weight: .bold))
                             .foregroundColor(.white)
                     }
                 }
@@ -43,7 +43,7 @@ struct HeatmapLogic: View {
                 
                 // Heatmap
                 Color.clear
-                    .frame(height: 1)
+                    .frame(height: 1.0)
                     .overlay(alignment: .leading) {
                         fretPositions(for: stringIndex)
                     }
