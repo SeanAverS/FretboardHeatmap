@@ -41,40 +41,20 @@ struct ContentView: View {
             ZStack {
                 HStack(spacing: 40) {
                     // Labels
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            noteLabels.toggle()
-                        }
-                    })
-                    {
-                        Text("LABELS")
-                            .font(.system(.headline))
-                            .foregroundColor(noteLabels ? .yellow : .white)
+                    topMenuButton("LABELS", isSelected: noteLabels) {
+                        noteLabels.toggle()
                     }
                     
                     // Chords
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            activeMenu = .chords
-                        }
-                    })
-                    {
-                        Text("CHORDS")
-                            .font(.system(.headline))
-                            .foregroundColor(activeMenu == .chords ? .yellow : .white)
+                    topMenuButton("CHORDS", isSelected: activeMenu == .chords) {
+                        activeMenu = .chords
                     }
                     
                     // Scales
-                    Button(action: {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            activeMenu = .scales
-                        }
-                    })
-                    {
-                        Text("SCALES")
-                            .font(.system(.headline))
-                            .foregroundColor(activeMenu == .scales ? .yellow : .white)
+                    topMenuButton("SCALES", isSelected: activeMenu == .scales) {
+                        activeMenu = .scales
                     }
+                
                 }
                 
                 // Scale Dropdown
@@ -88,6 +68,18 @@ struct ContentView: View {
             }
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity)
+        }
+    
+        private func topMenuButton(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+            Button(action: {
+                withAnimation(.easeIn(duration: 0.2)) {
+                    action()
+                }
+            }) {
+                Text(title)
+                    .font(.system(.headline))
+                    .foregroundColor(isSelected ? .yellow : .white)
+            }
         }
     
     // MARK: Guitar Neck / Frets
