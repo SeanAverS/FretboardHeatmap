@@ -96,7 +96,7 @@ struct ContentView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     ))
-                    .frame(height: 280)
+                    .frame(height: 280.0)
                     .padding(.top, -45)
                 
                 // Frets (1-12)
@@ -114,7 +114,7 @@ struct ContentView: View {
                     }
                     Spacer()
                 }
-                .frame(height: 280)
+                .frame(height: 280.0)
                 .padding(.top, -45)
             }
         }
@@ -189,11 +189,11 @@ struct ContentView: View {
                                 .frame(width: 70.0, height: 50.0)
                                 .background(Color.white.opacity(0.1))
                                 .foregroundColor(isSelected ? .yellow : .white)
-                                .cornerRadius(8)
+                                .cornerRadius(8.0)
                         }
                     }
                 }
-                .padding(.top, -30)
+                .padding(.top, -30.0)
             }
         }
         
