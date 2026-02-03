@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 0.0) {
             
             topMenuArea
             
@@ -86,7 +86,7 @@ struct ContentView: View {
     private var guitarNeckView: some View {
             ZStack {
                 // Fretboard Wood
-                RoundedRectangle(cornerRadius: 0)
+                RoundedRectangle(cornerRadius: 0.0)
                     .fill(LinearGradient(
                         colors: [
                             Color(red: 0.1, green: 0, blue: 0.02),
@@ -127,8 +127,8 @@ struct ContentView: View {
                 .frame(width: 20.0, height: 20.0)
         } else if index == 11 { // double dot
             VStack(spacing: 80.0) {
-                Circle().fill(Color(white: 0.7)).frame(width: 20.0)
-                Circle().fill(Color(white: 0.7)).frame(width: 20.0)
+                Circle().fill(Color(white: 0.7)).frame(width: 20.0, height: 20.0)
+                Circle().fill(Color(white: 0.7)).frame(width: 20.0, height: 20.0)
             }
         }
     }
@@ -141,6 +141,7 @@ struct ContentView: View {
                 Rectangle()
                     .fill(Color(white: 0.6))
                     .frame(height: GuitarSpecs.strings[index])
+                    .frame(maxWidth: .infinity)
             }
             Spacer()
         }
