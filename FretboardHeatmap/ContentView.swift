@@ -168,13 +168,22 @@ struct ContentView: View {
             if activeMenu != nil {
                 HStack(spacing: 20) {
                     ForEach(GuitarSpecs.roots, id: \.self) { root in
+                        
+                        let label: String = LabelMapping.getBottomMenuLabels(
+                            for: root,
+                            activeMenu: activeMenu,
+                            selectedScaleType: selectedScaleType
+                        )
+                        
                         Button(action: {
                             withAnimation(.easeIn(duration: 0.2)) {
                                 selectedRoot = (selectedRoot == root) ? nil : root
                             }
-                        }) {
-                            Text(LabelMapping.getBottomMenuLabels(for: root, activeMenu: activeMenu, selectedScaleType: selectedScaleType)).font(.system(.headline))
-                                .frame(width: 70, height: 50)
+                        })
+                        {
+                            Text(label)
+                                .font(.system(.headline))
+                                .frame(width: 70.0, height: 50.0)
                                 .background(Color.white.opacity(0.1))
                                 .foregroundColor(selectedRoot == root ? .yellow : .white)
                                 .cornerRadius(8)
@@ -184,6 +193,7 @@ struct ContentView: View {
                 .padding(.top, -30)
             }
         }
+        
 }
 
 #Preview {
