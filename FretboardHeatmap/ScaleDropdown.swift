@@ -10,19 +10,17 @@ import SwiftUI
 
 struct ScaleDropDown: View {
     @Binding var selectedScaleType: String
-
-    static let scales = ["Maj Pentatonic", "Min Pentatonic"]
     
     var body: some View {
-        Menu {
-            ForEach(ScaleDropDown.scales, id: \.self) { scale in
+        Menu { // Dropdown menu
+            ForEach(FretPositions.availableScales, id: \.self) { scale in
                 Button(scale) {
                     withAnimation(.easeIn(duration: 0.2)) {
                         self.selectedScaleType = scale
                     }
                 }
             }
-        } label: {
+        } label: { // Dropdown labels
             HStack(spacing: 5) {
                 Text(selectedScaleType.uppercased())
                     .font(.system(size: 17, weight: .bold))
