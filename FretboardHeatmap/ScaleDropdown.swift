@@ -27,6 +27,7 @@ struct ScaleDropDown: View {
                 Image(systemName: "chevron.down")
                     .font(.headline)
             }
+            .frame(minWidth: 195, alignment: .trailing)
             .foregroundColor(.yellow)
         }
     }
