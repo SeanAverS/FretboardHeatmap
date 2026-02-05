@@ -55,8 +55,8 @@ struct FretPositions {
     
     // MARK: allows ScaleDropDown updates
     static var availableScales: [String] {
-            return Array(scales.keys).sorted()
-        }
+        return Array(scales.keys).sorted()
+    }
     
     
     // MARK: fret notes
@@ -72,32 +72,21 @@ struct FretPositions {
         
     }
     
+    // MARK: finger numbers
+    private static let fingerNumbers: [String: [String: String]] = [
+        "G": ["5,3": "2", "4,2": "1", "0,3": "3"],
+        "D": ["2,2": "1", "1,3": "3", "0,2": "2"],
+        "C": ["4,3": "3", "3,2": "2", "1,1": "1"],
+        "E": ["2,1": "1", "3,2": "3", "4,2": "2"],
+        "A": ["3,2": "1", "2,2": "2", "1,2": "3"]
+    ]
+    
     // MARK: finger numbers for chords
     static func getFingerNumber(root: String, string: Int, fret: Int) -> String {
-        switch root {
-        case "G":
-            if string == 5 && fret == 3 { return "2" }
-            if string == 4 && fret == 2 { return "1" }
-            if string == 0 && fret == 3 { return "3" }
-        case "D":
-            if string == 2 && fret == 2 { return "1" }
-            if string == 1 && fret == 3 { return "3" }
-            if string == 0 && fret == 2 { return "2" }
-        case "C":
-            if string == 4 && fret == 3 { return "3" }
-            if string == 3 && fret == 2 { return "2" }
-            if string == 1 && fret == 1 { return "1" }
-        case "E":
-            if string == 2 && fret == 1 { return "1" }
-            if string == 3 && fret == 2 { return "3" }
-            if string == 4 && fret == 2 { return "2" }
-        case "A":
-            if string == 3 && fret == 2 { return "1" }
-            if string == 2 && fret == 2 { return "2" }
-            if string == 1 && fret == 2 { return "3" }
-        default: return ""
-        }
-        return ""
+        let key = "\(string),\(fret)"
+        
+        return fingerNumbers[root]?[key] ?? ""
+        
     }
 }
 
