@@ -10,7 +10,6 @@
     // currentMenu: current menu
 
 import Foundation
-import SwiftUI
 
 enum NavMode: String {
     case chords
@@ -111,8 +110,4 @@ struct FretPositions {
         return fingerNumbers[dropdownChoice]?[root]?[key] ?? ""
         
     }
-}
-
-#Preview {
-    ContentView();
 }
