@@ -13,13 +13,14 @@ struct LabelMapping {
     static func getFretboardLabels(
         activeMenu: NavMode?,
         root: String,
+        dropdownChoice: String,
         string: Int,
         fret: Int
     ) -> String {
         if activeMenu == .scales { // musical alphabet
             return NoteAlphabet.getNoteName(string: string, fret: fret)
         } else { // finger positions
-            return FretPositions.getFingerNumber(root: root, string: string, fret: fret)
+            return FretPositions.getFingerNumber(dropdownChoice: dropdownChoice, root: root, string: string, fret: fret)
         }
     }
     
@@ -27,9 +28,9 @@ struct LabelMapping {
     static func getBottomMenuLabels(
         for root: String,
         activeMenu: NavMode?,
-        selectedScaleType: String
+        selectedDropdownOption: String
     ) -> String {
-        if activeMenu == .scales && selectedScaleType.hasPrefix("Min") {
+        if activeMenu == .scales && selectedDropdownOption.hasPrefix("Min") {
             return "\(root)m"
         }
         return root

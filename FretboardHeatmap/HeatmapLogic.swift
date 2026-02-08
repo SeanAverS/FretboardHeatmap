@@ -11,7 +11,7 @@ import SwiftUI
 struct HeatmapLogic: View {
     let selectedRoot: String? // selected chord or scale
     let activeMenu: NavMode? // "Chords" or "Scales" tracker
-    let selectedScaleType: String // Scale Dropdown menu
+    let selectedDropdownOption: String // Dropdown
     let noteLabels: Bool
     let frets: [CGFloat]
     
@@ -56,12 +56,12 @@ struct HeatmapLogic: View {
     @ViewBuilder
     private func fretPositions(for stringIndex: Int) -> some View {
         // get fret positions for selected root
-        if let root = selectedRoot, let mode = activeMenu {
-            let currentMap = FretPositions.getFretMap(for: root, mode: mode, type: selectedScaleType)
+        if let root = selectedRoot, let currentMenu = activeMenu {
+            let currentFretPositions = FretPositions.getFretMap(for: root, currentMenu: currentMenu, dropdownChoice: selectedDropdownOption)
             
             // display fret positions
-            if let fretList = currentMap[stringIndex] {
-                ForEach(fretList, id: \.self) { targetFret in
+            if let displayFrets = currentFretPositions[stringIndex] {
+                ForEach(displayFrets, id: \.self) { targetFret in
                     if targetFret > 0 && targetFret <= frets.count {
                         noteMarker(root: root, string: stringIndex, fret: targetFret)
                             .animation(.spring(response: 0.4, dampingFraction: 0.7), value: targetFret)
@@ -82,7 +82,7 @@ struct HeatmapLogic: View {
         
         // labels
         let rootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
-        let nonRootNote = LabelMapping.getFretboardLabels(activeMenu: activeMenu, root: root, string: string, fret: fret)
+        let nonRootNote = LabelMapping.getFretboardLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
         
         NoteCircle(nonRootNote: nonRootNote, rootNote: rootNote, noteLabels: noteLabels)
             .offset(x: centerOfWood + 10.0 - 12.0 - 1.5)

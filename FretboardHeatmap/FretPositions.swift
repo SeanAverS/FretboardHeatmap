@@ -7,7 +7,7 @@
 //  Returns fret/finger positions of the selected root
 //  Parameters
     // root: the selected chord/scale
-    // mode: current menu
+    // currentMenu: current menu
 
 import Foundation
 import SwiftUI
@@ -19,7 +19,17 @@ enum NavMode: String {
 
 struct FretPositions {
     
-    // MARK: Scales
+    // MARK: Chord or Scale dictionaries
+    static func dictionaries(for currentMenu: NavMode) -> [String] {
+        switch currentMenu {
+        case .chords:
+            return Array(chords.keys).sorted()
+        case .scales:
+            return Array(scales.keys).sorted()
+        }
+    }
+    
+    // MARK: Scales dictionary
     private static let scales: [String: [String: [Int: [Int]]]] = [
         "Min Pentatonic": [
             "G": [0: [1, 3, 6, 8, 10, 13], 1: [1, 3, 6, 8, 11, 13], 2: [3, 5, 7, 10, 12], 3: [3, 5, 8, 10, 12], 4: [1, 3, 5, 8, 10, 13], 5: [1, 3, 6, 8, 10, 13]],
@@ -44,48 +54,61 @@ struct FretPositions {
         ]
     ]
     
-    // MARK: Chords
-    private static let chords: [String: [Int: [Int]]] = [
-        "G": [0: [3], 4: [2], 5: [3]],
-        "D": [0: [2], 1: [3], 2: [2]],
-        "C": [1: [1], 3: [2], 4: [3]],
-        "E": [2: [1], 3: [2], 4: [2]],
-        "A": [1: [2], 2: [2], 3: [2]]
+    // MARK: - Chords dictionary 
+    private static let chords: [String: [String: [Int: [Int]]]] = [
+        "Major": [
+            "G": [0: [3], 4: [2], 5: [3]],
+            "D": [0: [2], 1: [3], 2: [2]],
+            "C": [1: [1], 3: [2], 4: [3]],
+            "E": [2: [1], 3: [2], 4: [2]],
+            "A": [1: [2], 2: [2], 3: [2]]
+        ],
+        "Minor": [
+            "A": [1: [1], 2: [2], 3: [2]],
+            "E": [3: [2], 4: [2]],
+            "D": [0: [1], 1: [3], 2: [2]],
+            "G": [0: [3], 1: [3], 2: [3], 3: [5], 4: [5], 5: [3]],
+            "C": [0: [3], 1: [4], 2: [5], 3: [5]]
+        ]
     ]
-    
-    // MARK: allows ScaleDropDown updates
-    static var availableScales: [String] {
-        return Array(scales.keys).sorted()
-    }
     
     
     // MARK: fret notes
-    static func getFretMap(for root: String, mode: NavMode?, type: String) -> [Int: [Int]] {
-        guard let mode = mode else { return [:] }
+    static func getFretMap(for root: String, currentMenu: NavMode?, dropdownChoice: String) -> [Int: [Int]] {
+        guard let currentMenu = currentMenu else { return [:] }
         
-        switch mode {
+        switch currentMenu {
         case .chords:
-            return chords[root] ?? [:]
+            return chords[dropdownChoice]?[root] ?? [:]
         case .scales:
-            return scales[type]?[root] ?? [:]
+            return scales[dropdownChoice]?[root] ?? [:]
         }
         
     }
     
     // MARK: finger numbers
-    private static let fingerNumbers: [String: [String: String]] = [
-        "G": ["5,3": "2", "4,2": "1", "0,3": "3"],
-        "D": ["2,2": "1", "1,3": "3", "0,2": "2"],
-        "C": ["4,3": "3", "3,2": "2", "1,1": "1"],
-        "E": ["2,1": "1", "3,2": "3", "4,2": "2"],
-        "A": ["3,2": "1", "2,2": "2", "1,2": "3"]
+    private static let fingerNumbers: [String: [String: [String: String]]] = [
+        "Major": [
+                "G": ["5,3": "2", "4,2": "1", "0,3": "3"],
+                "D": ["2,2": "1", "1,3": "3", "0,2": "2"],
+                "C": ["4,3": "3", "3,2": "2", "1,1": "1"],
+                "E": ["2,1": "1", "3,2": "3", "4,2": "2"],
+                "A": ["3,2": "1", "2,2": "2", "1,2": "3"]
+            ],
+        "Minor": [
+            "A": ["1,1": "1", "2,2": "3", "3,2": "2"],
+            "E": ["3,2": "2", "4,2": "1"],
+            "D": ["0,1": "1", "1,3": "3", "2,2": "2"],
+            "C": ["3,5": "3", "2,5": "4", "1,4": "2", "0,3": "1"],
+            "G": ["5,3": "1", "4,5": "3", "3,5": "4", "2,3": "1", "1,3": "1", "0,3": "1"]
+        ]
     ]
     
     // MARK: finger numbers for chords
-    static func getFingerNumber(root: String, string: Int, fret: Int) -> String {
+    static func getFingerNumber(dropdownChoice: String, root: String, string: Int, fret: Int) -> String {
         let key = "\(string),\(fret)"
         
-        return fingerNumbers[root]?[key] ?? ""
+        return fingerNumbers[dropdownChoice]?[root]?[key] ?? ""
         
     }
 }

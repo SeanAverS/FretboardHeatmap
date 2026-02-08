@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var noteLabels: Bool = false // Toggle note label display
     @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
-    @State private var selectedScaleType: String = "Maj Pentatonic" // Scale Dropdown
+    @State private var selectedDropdownOption: String = "Initial Display" // Dropdown
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
     var body: some View {
@@ -48,21 +48,23 @@ struct ContentView: View {
                     // Chords
                     topMenuButton("CHORDS", isSelected: activeMenu == .chords) {
                         activeMenu = .chords
+                        selectedDropdownOption = "Major"
                     }
                     
                     // Scales
                     topMenuButton("SCALES", isSelected: activeMenu == .scales) {
                         activeMenu = .scales
+                        selectedDropdownOption = "Maj Pentatonic"
                     }
                 
                 }
                 
-                // Scale Dropdown
+                // Dropdown
                 HStack {
                     Spacer() // position far right
                     
-                    if activeMenu == .scales {
-                        ScaleDropDown(selectedScaleType: $selectedScaleType)
+                    if let currentMenu = activeMenu {
+                        TopMenuDropdown(selectedDropdownOption: $selectedDropdownOption, activeMenu: currentMenu)
                     }
                 }
             }
@@ -154,7 +156,7 @@ struct ContentView: View {
         HeatmapLogic(
             selectedRoot: selectedRoot,
             activeMenu: activeMenu,
-            selectedScaleType: selectedScaleType,
+            selectedDropdownOption: selectedDropdownOption,
             noteLabels: noteLabels,
             frets: GuitarSpecs.frets
         )
@@ -172,7 +174,7 @@ struct ContentView: View {
                         let label: String = LabelMapping.getBottomMenuLabels(
                             for: root,
                             activeMenu: activeMenu,
-                            selectedScaleType: selectedScaleType
+                            selectedDropdownOption: selectedDropdownOption
                         )
                         
                         let isSelected: Bool = (selectedRoot == root)
