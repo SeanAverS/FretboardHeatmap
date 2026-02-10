@@ -1,5 +1,5 @@
 //
-//  NoteLabelMapping.swift
+//  NoteAlphabet.swift
 //  FretboardHeatmap
 //
 //  Created by Sean Avery Suguitan on 2026-01-14.
