@@ -1,16 +1,16 @@
 //
-//  LabelMapping.swift
+//  FretLabels.swift
 //  FretboardHeatmap
 //
 //  Created by Sean Avery Suguitan on 2026-01-26.
 //
-//  Labels non-root fretboard notes and bottom menu
+//  Labels non-root fretboard notes(scales) and finger numbers(chords)
 
 import Foundation
 
-struct LabelMapping {
+struct FretLabels {
     
-    static func getFretboardLabels(
+    static func getLabels(
         activeMenu: NavMode?,
         root: String,
         dropdownChoice: String,

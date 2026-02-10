@@ -82,7 +82,7 @@ struct HeatmapLogic: View {
         
         // labels
         let rootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
-        let nonRootNote = LabelMapping.getFretboardLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
+        let nonRootNote = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
         
         NoteCircle(nonRootNote: nonRootNote, rootNote: rootNote, noteLabels: noteLabels)
             .offset(x: centerOfWood + 10.0 - 12.0 - 1.5)
