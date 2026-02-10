@@ -171,10 +171,10 @@ struct ContentView: View {
                 HStack(spacing: 20) {
                     ForEach(GuitarSpecs.roots, id: \.self) { root in
                         
-                        let label: String = LabelMapping.getBottomMenuLabels(
+                        let bottomMenulabels = BottomMenuLabels.getLabels(
                             for: root,
-                            activeMenu: activeMenu,
-                            selectedDropdownOption: selectedDropdownOption
+                            currentMenu: activeMenu,
+                            dropdownChoice: selectedDropdownOption
                         )
                         
                         let isSelected: Bool = (selectedRoot == root)
@@ -186,7 +186,7 @@ struct ContentView: View {
                             }
                         })
                         {
-                            Text(label)
+                            Text(bottomMenulabels)
                                 .font(.system(.headline))
                                 .frame(width: 70.0, height: 50.0)
                                 .background(Color.white.opacity(0.1))

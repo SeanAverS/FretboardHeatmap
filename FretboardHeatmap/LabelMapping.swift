@@ -23,17 +23,4 @@ struct LabelMapping {
             return FretPositions.getFingerNumber(dropdownChoice: dropdownChoice, root: root, string: string, fret: fret)
         }
     }
-    
-    // switch bottom menu labels when necessary
-    static func getBottomMenuLabels(
-        for root: String,
-        activeMenu: NavMode?,
-        selectedDropdownOption: String
-    ) -> String {
-        if activeMenu == .scales && selectedDropdownOption.hasPrefix("Min") {
-            return "\(root)m"
-        }
-        return root
-    }
 }
-
