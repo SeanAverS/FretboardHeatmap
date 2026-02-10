@@ -17,18 +17,18 @@ struct HeatmapLogic: View {
     
     // style fret positions
     struct NoteCircle: View {
-        let nonRootNote: String
-        let rootNote: Bool
+        let nonRootNoteLabel: String
+        let rootNoteLabel: Bool
         let noteLabels: Bool
 
         var body: some View {
             Circle()
-                .fill(rootNote ? Color.red : Color.blue)
+                .fill(rootNoteLabel ? Color.red : Color.blue)
                 .frame(width: 24.0, height: 24.0)
             
                 .overlay {
                     if noteLabels {
-                        Text(nonRootNote)
+                        Text(nonRootNoteLabel)
                             .font(.system(size: 15.0, weight: .bold))
                             .foregroundColor(.white)
                     }
@@ -81,10 +81,10 @@ struct HeatmapLogic: View {
         let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2.0)
         
         // labels
-        let rootNote = HighlightRootNote.check(root: root, string: string, fret: fret)
-        let nonRootNote = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
-        
-        NoteCircle(nonRootNote: nonRootNote, rootNote: rootNote, noteLabels: noteLabels)
+        let rootNoteLabel = HighlightRootNote.check(root: root, string: string, fret: fret)
+        let nonRootNoteLabel = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
+        // center the labels
+        NoteCircle(nonRootNoteLabel: nonRootNoteLabel, rootNoteLabel: rootNoteLabel, noteLabels: noteLabels)
             .offset(x: centerOfWood + 10.0 - 12.0 - 1.5)
             .transition(.opacity.combined(with: .scale))
     }
