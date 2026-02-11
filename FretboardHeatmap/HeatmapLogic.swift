@@ -23,9 +23,11 @@ struct HeatmapLogic: View {
 
         var body: some View {
             Circle()
+                // size
                 .fill(rootNoteLabel ? Color.red : Color.blue)
                 .frame(width: 24.0, height: 24.0)
             
+                // label
                 .overlay {
                     if noteLabels {
                         Text(nonRootNoteLabel)
