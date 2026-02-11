@@ -15,7 +15,7 @@ struct HeatmapLogic: View {
     let noteLabels: Bool
     let frets: [CGFloat]
     
-    // style fret positions
+    // MARK: style fret positions
     struct NoteCircle: View {
         let nonRootNoteLabel: String
         let rootNoteLabel: Bool
@@ -38,6 +38,7 @@ struct HeatmapLogic: View {
         }
     }
     
+    // MARK: Heatmap frets placement
     var body: some View {
         VStack(spacing: 0) {
             ForEach(0..<6, id: \.self) { stringIndex in
@@ -54,7 +55,7 @@ struct HeatmapLogic: View {
         }
     }
     
-    // Process frets
+    // MARK: get fret positions for Heatmap placement
     @ViewBuilder
     private func fretPositions(for stringIndex: Int) -> some View {
         // get fret positions for selected root
@@ -73,7 +74,7 @@ struct HeatmapLogic: View {
         }
     }
 
-    // Calculate center of fret/label positions
+    // MARK: Calculate center of fret/label positions
     @ViewBuilder
     private func noteMarker(root: String, string: Int, fret: Int) -> some View {
         // center of fret
