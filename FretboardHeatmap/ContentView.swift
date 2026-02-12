@@ -47,16 +47,13 @@ struct ContentView: View {
                     
                     // Chords
                     topMenuButton("CHORDS", isSelected: activeMenu == .chords) {
-                        activeMenu = .chords
-                        selectedDropdownOption = "Major"
+                        handleActiveMenuSwitch(to: .chords)
                     }
-                    
+
                     // Scales
                     topMenuButton("SCALES", isSelected: activeMenu == .scales) {
-                        activeMenu = .scales
-                        selectedDropdownOption = "Maj Pentatonic"
+                        handleActiveMenuSwitch(to: .scales)
                     }
-                
                 }
                 
                 // Dropdown
@@ -82,6 +79,15 @@ struct ContentView: View {
                 .font(.system(.headline))
                 .foregroundColor(isSelected ? .yellow : .white)
         }
+    }
+    // topMenuArea consistent activeMenu key switching
+    private func handleActiveMenuSwitch(to mode: NavMode) {
+        guard activeMenu != mode else { return } // prevent multiple taps showing default option
+
+        let matchedOption = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, currentMenu: mode)
+        
+        activeMenu = mode
+        selectedDropdownOption = matchedOption
     }
     
     // MARK: Guitar Neck / Frets
