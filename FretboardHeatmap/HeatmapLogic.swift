@@ -88,7 +88,7 @@ struct HeatmapLogic: View {
         let nonRootNoteLabel = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
         // center the labels
         NoteCircle(nonRootNoteLabel: nonRootNoteLabel, rootNoteLabel: rootNoteLabel, noteLabels: noteLabels)
-            .offset(x: centerOfWood)
+            .offset(x: centerOfWood + 10.0 - 12.0 - 1.5) // account for rightmost fret edge 
             .transition(.opacity.combined(with: .scale))
     }
 }
