@@ -188,7 +188,7 @@ struct ContentView: View {
                         // Highlight selected root
                         Button(action: {
                             withAnimation(.easeIn(duration: 0.2)) {
-                                selectedRoot = (isSelected) ? nil : root
+                                selectedRoot = root
                             }
                         })
                         {
