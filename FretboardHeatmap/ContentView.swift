@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var noteLabels: Bool = false // Toggle note label display
-    @State private var activeMenu: NavMode? = nil // "Chords" or "Scales" tracker
+    @State private var activeMenu: menuChoice? = nil // "Chords" or "Scales" tracker
     @State private var selectedDropdownOption: String = "Initial Display" // Dropdown
     @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
     
@@ -81,7 +81,7 @@ struct ContentView: View {
         }
     }
     // topMenuArea consistent activeMenu key switching
-    private func handleActiveMenuSwitch(to selected: NavMode) {
+    private func handleActiveMenuSwitch(to selected: menuChoice) {
         guard activeMenu != selected else { return } // prevent multiple taps showing default option
 
         let matchedOption = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, activeMenu: selected)

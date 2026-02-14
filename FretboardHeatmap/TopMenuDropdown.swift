@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopMenuDropdown: View {
     @Binding var selectedDropdownOption: String
-    let activeMenu: NavMode?
+    let activeMenu: menuChoice?
     
     var body: some View {
         Menu { // Dropdown menu

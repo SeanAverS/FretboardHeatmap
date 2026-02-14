@@ -11,7 +11,7 @@ import Foundation
 struct FretLabels {
     
     static func getLabels(
-        activeMenu: NavMode?,
+        activeMenu: menuChoice?,
         root: String,
         dropdownChoice: String,
         string: Int,

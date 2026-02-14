@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HeatmapLogic: View {
     let selectedRoot: String? // selected chord or scale
-    let activeMenu: NavMode? // "Chords" or "Scales" tracker
+    let activeMenu: menuChoice? // "Chords" or "Scales" tracker
     let selectedDropdownOption: String // Dropdown
     let noteLabels: Bool
     let frets: [CGFloat]

@@ -11,7 +11,7 @@ import Foundation
 struct BottomMenuLabels {
     static func getLabels (
         for root: String,
-        activeMenu: NavMode?,
+        activeMenu: menuChoice?,
         dropdownChoice: String
     ) -> String {
         if activeMenu == .scales && dropdownChoice.hasPrefix("Min") || activeMenu == .chords && dropdownChoice.hasPrefix("Min") {

@@ -21,7 +21,7 @@ struct TopMenuKeyMatcher {
         "Minor": "Min Pentatonic"
     ]
     
-    static func getMatch(for currentOption: String, activeMenu selected: NavMode) -> String {
+    static func getMatch(for currentOption: String, activeMenu selected: menuChoice) -> String {
         if selected == .scales { // when in CHORDS and user taps SCALES
             return chordToScale[currentOption] ?? "Maj Pentatonic"
         } else { // when in SCALES and user taps CHORDS

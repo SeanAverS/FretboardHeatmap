@@ -11,7 +11,7 @@
 
 import Foundation
 
-enum NavMode: String {
+enum menuChoice: String {
     case chords
     case scales
 }
@@ -19,7 +19,7 @@ enum NavMode: String {
 struct FretPositions {
     
     // MARK: Chord or Scale dictionaries
-    static func dictionaries(for activeMenu: NavMode) -> [String] {
+    static func dictionaries(for activeMenu: menuChoice) -> [String] {
         switch activeMenu {
         case .chords:
             return Array(chords.keys).sorted()
@@ -73,7 +73,7 @@ struct FretPositions {
     
     
     // MARK: fret notes
-    static func getFretMap(for root: String, activeMenu: NavMode?, dropdownChoice: String) -> [Int: [Int]] {
+    static func getFretMap(for root: String, activeMenu: menuChoice?, dropdownChoice: String) -> [Int: [Int]] {
         guard let activeMenu = activeMenu else { return [:] }
         
         switch activeMenu {
