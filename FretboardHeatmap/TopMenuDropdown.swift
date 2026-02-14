@@ -14,8 +14,8 @@ struct TopMenuDropdown: View {
     
     var body: some View {
         Menu { // Dropdown menu
-            if let currentMenu = activeMenu {
-                ForEach(FretPositions.dictionaries(for: currentMenu), id: \.self) { dropdownChoice in
+            if let activeMenu = activeMenu {
+                ForEach(FretPositions.dictionaries(for: activeMenu), id: \.self) { dropdownChoice in
                     Button(dropdownChoice) {
                         withAnimation { self.selectedDropdownOption = dropdownChoice }
                     }

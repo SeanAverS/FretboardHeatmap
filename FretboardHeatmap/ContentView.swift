@@ -60,8 +60,8 @@ struct ContentView: View {
                 HStack {
                     Spacer() // position far right
                     
-                    if let currentMenu = activeMenu {
-                        TopMenuDropdown(selectedDropdownOption: $selectedDropdownOption, activeMenu: currentMenu)
+                    if let activeMenu = activeMenu {
+                        TopMenuDropdown(selectedDropdownOption: $selectedDropdownOption, activeMenu: activeMenu)
                     }
                 }
             }
@@ -81,12 +81,12 @@ struct ContentView: View {
         }
     }
     // topMenuArea consistent activeMenu key switching
-    private func handleActiveMenuSwitch(to mode: NavMode) {
-        guard activeMenu != mode else { return } // prevent multiple taps showing default option
+    private func handleActiveMenuSwitch(to selected: NavMode) {
+        guard activeMenu != selected else { return } // prevent multiple taps showing default option
 
-        let matchedOption = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, currentMenu: mode)
+        let matchedOption = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, activeMenu: selected)
         
-        activeMenu = mode
+        activeMenu = selected
         selectedDropdownOption = matchedOption
     }
     
@@ -179,7 +179,7 @@ struct ContentView: View {
                         
                         let bottomMenulabels = BottomMenuLabels.getLabels(
                             for: root,
-                            currentMenu: activeMenu,
+                            activeMenu: activeMenu,
                             dropdownChoice: selectedDropdownOption
                         )
                         

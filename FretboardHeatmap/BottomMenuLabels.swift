@@ -11,11 +11,11 @@ import Foundation
 struct BottomMenuLabels {
     static func getLabels (
         for root: String,
-        currentMenu: NavMode?,
+        activeMenu: NavMode?,
         dropdownChoice: String
     ) -> String {
-        if currentMenu == .scales && dropdownChoice.hasPrefix("Min") || currentMenu == .chords && dropdownChoice.hasPrefix("Min") {
-            return "\(root)m" // Minor Label toggle 
+        if activeMenu == .scales && dropdownChoice.hasPrefix("Min") || activeMenu == .chords && dropdownChoice.hasPrefix("Min") {
+            return "\(root)m" // Minor Label toggle
         }
         
         return root

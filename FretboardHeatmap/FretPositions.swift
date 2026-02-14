@@ -7,7 +7,7 @@
 //  Returns fret/finger positions of the selected root
 //  Parameters
     // root: the selected chord/scale
-    // currentMenu: current menu
+    // activeMenu: current menu
 
 import Foundation
 
@@ -19,8 +19,8 @@ enum NavMode: String {
 struct FretPositions {
     
     // MARK: Chord or Scale dictionaries
-    static func dictionaries(for currentMenu: NavMode) -> [String] {
-        switch currentMenu {
+    static func dictionaries(for activeMenu: NavMode) -> [String] {
+        switch activeMenu {
         case .chords:
             return Array(chords.keys).sorted()
         case .scales:
@@ -73,10 +73,10 @@ struct FretPositions {
     
     
     // MARK: fret notes
-    static func getFretMap(for root: String, currentMenu: NavMode?, dropdownChoice: String) -> [Int: [Int]] {
-        guard let currentMenu = currentMenu else { return [:] }
+    static func getFretMap(for root: String, activeMenu: NavMode?, dropdownChoice: String) -> [Int: [Int]] {
+        guard let activeMenu = activeMenu else { return [:] }
         
-        switch currentMenu {
+        switch activeMenu {
         case .chords:
             return chords[dropdownChoice]?[root] ?? [:]
         case .scales:
