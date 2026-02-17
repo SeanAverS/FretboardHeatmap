@@ -60,7 +60,7 @@ struct HeatmapLogic: View {
     private func fretPositions(for stringIndex: Int) -> some View {
         // get fret positions for selected root
         if let root = selectedRoot, let activeMenu = activeMenu {
-            let currentFretPositions = FretPositions.getFretMap(for: root, activeMenu: activeMenu, dropdownChoice: selectedDropdownOption)
+            let currentFretPositions = FretPositions.getFretMap(activeMenu: activeMenu, dropdownChoice: selectedDropdownOption, root: root)
             
             // display fret positions
             if let displayFrets = currentFretPositions[stringIndex] {

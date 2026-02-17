@@ -1,24 +1,25 @@
 //
-//  selectedRootMapping.swift
+//  FretPositions.swift
 //  FretboardHeatmap
 //
 //  Created by Sean Avery Suguitan on 2025-12-26.
 //
-//  Returns fret/finger positions of the selected root
-//  Parameters
-    // root: the selected chord/scale
-    // activeMenu: current menu
 
 import Foundation
 
+/// Available top menu choices
 enum menuChoice: String {
     case chords
     case scales
 }
 
+/// Manages fret note and finger positions
 struct FretPositions {
     
-    // MARK: Chord or Scale dictionaries
+    /// Get chord or scale dictionaries
+    /// - Parameters:
+    ///   - activemenu: Top menu choice
+    /// - Returns: list of positions for right key
     static func dictionaries(for activeMenu: menuChoice) -> [String] {
         switch activeMenu {
         case .chords:
@@ -26,6 +27,38 @@ struct FretPositions {
         case .scales:
             return Array(scales.keys).sorted()
         }
+    }
+    
+    /// Prepare fret notes for heatmap
+    /// - Parameters:
+    ///    - activeMenu: Top menu choice
+    ///    - dropdownChoice: Top menu dropdown choice
+    ///    - root: Root note choice
+    /// - Returns: Dictionary for "chords" or "scales"
+    static func getFretMap(activeMenu: menuChoice?, dropdownChoice: String, root: String, ) -> [Int: [Int]] {
+        guard let activeMenu = activeMenu else { return [:] }
+        
+        switch activeMenu {
+        case .chords:
+            return chords[dropdownChoice]?[root] ?? [:]
+        case .scales:
+            return scales[dropdownChoice]?[root] ?? [:]
+        }
+        
+    }
+    
+    /// Get finger numbers for chords
+    /// - Parameters:
+    ///    - dropdownChoice: Top menu dropdown choice
+    ///    - root: Root note choice
+    ///    - string: current string
+    ///    - fret: current fret
+    /// - Returns: finger number positions for chords
+    static func getFingerNumber(dropdownChoice: String, root: String, string: Int, fret: Int) -> String {
+        let key = "\(string),\(fret)"
+        
+        return fingerNumbers[dropdownChoice]?[root]?[key] ?? ""
+        
     }
     
     // MARK: Scales dictionary
@@ -71,21 +104,7 @@ struct FretPositions {
         ]
     ]
     
-    
-    // MARK: fret notes
-    static func getFretMap(for root: String, activeMenu: menuChoice?, dropdownChoice: String) -> [Int: [Int]] {
-        guard let activeMenu = activeMenu else { return [:] }
-        
-        switch activeMenu {
-        case .chords:
-            return chords[dropdownChoice]?[root] ?? [:]
-        case .scales:
-            return scales[dropdownChoice]?[root] ?? [:]
-        }
-        
-    }
-    
-    // MARK: finger numbers
+    // MARK: Finger numbers dictionary
     private static let fingerNumbers: [String: [String: [String: String]]] = [
         "Major": [
                 "G": ["5,3": "2", "4,2": "1", "0,3": "3"],
@@ -102,12 +121,4 @@ struct FretPositions {
             "G": ["5,3": "1", "4,5": "3", "3,5": "4", "2,3": "1", "1,3": "1", "0,3": "1"]
         ]
     ]
-    
-    // MARK: finger numbers for chords
-    static func getFingerNumber(dropdownChoice: String, root: String, string: Int, fret: Int) -> String {
-        let key = "\(string),\(fret)"
-        
-        return fingerNumbers[dropdownChoice]?[root]?[key] ?? ""
-        
-    }
 }
