@@ -7,7 +7,7 @@
 
 import Foundation
 
-//  Labels non-root fretboard notes(for scales) and finger numbers(for chords)
+///  Labels non-root fretboard notes(for scales) and finger numbers(for chords)
 struct FretLabels {
     
     /// Prepare fret labels for heatmap
