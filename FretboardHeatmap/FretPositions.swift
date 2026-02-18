@@ -16,11 +16,11 @@ enum menuChoice: String {
 /// Manages fret note and finger positions
 struct FretPositions {
     
-    /// Get chord or scale dictionaries
+    /// Prepare dictionaries for top menu dropdown
     /// - Parameters:
-    ///   - activemenu: Top menu choice
-    /// - Returns: list of positions for right key
-    static func dictionaries(for activeMenu: menuChoice) -> [String] {
+    ///   - activeMenu: Top menu choice
+    /// - Returns: Options for right top menu dropdown
+    static func dropdownChoices(for activeMenu: menuChoice) -> [String] {
         switch activeMenu {
         case .chords:
             return Array(chords.keys).sorted()
