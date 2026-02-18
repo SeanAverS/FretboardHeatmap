@@ -84,7 +84,7 @@ struct HeatmapLogic: View {
         let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2.0)
         
         // labels
-        let rootNoteLabel = HighlightRootNote.check(root: root, string: string, fret: fret)
+        let rootNoteLabel = RootNotePositions.check(root: root, string: string, fret: fret)
         let nonRootNoteLabel = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: selectedDropdownOption, string: string, fret: fret)
         // center the labels
         NoteCircle(nonRootNoteLabel: nonRootNoteLabel, rootNoteLabel: rootNoteLabel, noteLabels: noteLabels)
