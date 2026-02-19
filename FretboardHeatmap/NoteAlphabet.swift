@@ -4,26 +4,27 @@
 //
 //  Created by Sean Avery Suguitan on 2026-01-14.
 //
-//  Returns the note name of each fret for the selected chord or scale root
-//  Parameters
-    // string: the current string
-    // fret: the current fret 
 
 import Foundation
 
+/// Prepare musical notes for FretLabels
 struct NoteAlphabet {
     private static let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-    private static let stringOffsets = [4, 11, 7, 2, 9, 4] // High E to Low E
+    private static let openStringIndex = [4, 11, 7, 2, 9, 4] // High E to Low E
     
+    /// Determine musical note for current position
+    ///
+    /// Formula: `(Open String Position + Current Fret) % 12`
+    /// - Modulo keeps the value inside notes[]
+    ///
+    /// - Parameters:
+    ///    - string: The current string
+    ///    - fret: The current fret
+    /// - Returns: Musical note for current position
     static func getNoteName(string: Int, fret: Int) -> String {
-        guard string >= 0 && string < stringOffsets.count else { return "" }
+        guard string >= 0 && string < openStringIndex.count else { return "" }
         
-        let noteIndex = (stringOffsets[string] + fret) % 12 // (string position + current fret)
-        return notes[noteIndex]
+        let notePosition = (openStringIndex[string] + fret) % 12
+        return notes[notePosition]
     }
 }
-
-// Explanation
-    // stringOffsets[]: current Open String notes[i], i.e just strumming the string itself
-    // stringOffsets[string]: string[i] from ContentView, i.e map musical note to current string
-    // (stringOffsets[string] + fret) % 12: always stays within notes[i]
