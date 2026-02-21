@@ -4,23 +4,27 @@
 //
 //  Created by Sean Avery Suguitan on 2025-12-18.
 //
-//  The Main Hub / UI
 
 import SwiftUI
 
+///  The Main Hub
+///
+///  Manages the main components states and assembles them into the UI
 struct ContentView: View {
-    @State private var noteLabels: Bool = false // Toggle note label display
-    @State private var activeMenu: menuChoice? = nil // "Chords" or "Scales" tracker
-    @State private var selectedDropdownOption: String = "Initial Display" // Dropdown
-    @State private var selectedRoot: String? = nil // Current Selected Chord or Scale
+    // MARK: Main States
+    @State private var noteLabels: Bool = false // Toggle label display for notes
+    @State private var activeMenu: menuChoice? = nil // If user is on "CHORDS" or "SCALES" menu
+    @State private var selectedRoot: String? = nil // The root a user has chosen
+    @State private var selectedDropdownOption: String = "Initial Display" // Dropdown options for selectedRoot
     
+    // MARK: Main Layout
     var body: some View {
         VStack(spacing: 0.0) {
             
             topMenuArea
             
             ZStack {
-               guitarNeckView 
+               guitarNeckView
                guitarStringsView
                heatmapView
             }
@@ -31,12 +35,14 @@ struct ContentView: View {
         }
         .background(Color.black.ignoresSafeArea())
         
+        // Haptics
         .sensoryFeedback(.selection, trigger: activeMenu)
         .sensoryFeedback(.selection, trigger: selectedRoot)
 
     }
     
-    // MARK: Top Menu
+    // MARK: topMenuArea Components
+    /// Generate top menu and dropdown components
     private var topMenuArea: some View {
             ZStack {
                 HStack(spacing: 40) {
@@ -68,7 +74,8 @@ struct ContentView: View {
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity)
         }
-    // topMenuArea Helper for buttons
+    
+    /// Top menu buttons styling
     private func topMenuButton(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: {
             withAnimation(.easeIn(duration: 0.3)) {
@@ -80,17 +87,19 @@ struct ContentView: View {
                 .foregroundColor(isSelected ? .yellow : .white)
         }
     }
-    // topMenuArea consistent activeMenu key switching
+    
+    /// Display same key for new top menu choice
     private func handleActiveMenuSwitch(to selected: menuChoice) {
-        guard activeMenu != selected else { return } // prevent multiple taps showing default option
-
-        let matchedOption = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, activeMenu: selected)
+        guard activeMenu != selected else { return } // prevent multiple taps
+        
+        let sameKey = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, activeMenu: selected)
         
         activeMenu = selected
-        selectedDropdownOption = matchedOption
+        selectedDropdownOption = sameKey
     }
     
-    // MARK: Guitar Neck / Frets
+    // MARK: guitarNeckView Components
+    /// Generate fretboard wood and frets for guitar neck
     private var guitarNeckView: some View {
             ZStack {
                 // Fretboard Wood
@@ -126,7 +135,8 @@ struct ContentView: View {
                 .padding(.top, -45)
             }
         }
-    // guitarNeckView Helper for fret inlays
+    
+    /// Fret inlay styling (grey circles)
         @ViewBuilder
     private func fretInlays(for index: Int) -> some View {
         if [2, 4, 6, 8].contains(index) { // single dot
@@ -141,7 +151,8 @@ struct ContentView: View {
         }
     }
     
-    // MARK: Guitar Strings
+    // MARK: guitarStringsView Component
+    /// Generate guitar strings on fretboard
     private var guitarStringsView: some View {
         VStack(spacing: 0) {
             ForEach(0..<6, id: \.self) { index in
@@ -157,7 +168,8 @@ struct ContentView: View {
         .padding(.top, -45)
     }
     
-    // MARK: Heatmap
+    // MARK: heatmapView Component
+    /// Generate heatmap dots and labels on fretboard
     private var heatmapView: some View {
         HeatmapLogic(
             selectedRoot: selectedRoot,
@@ -170,20 +182,21 @@ struct ContentView: View {
         .padding(.top, -45)
     }
     
-    // MARK: - Bottom Menu
+    // MARK: - bottomMenuArea Component
+    /// Generate labels for bottom menu
         @ViewBuilder
         private var bottomMenuArea: some View {
             if activeMenu != nil {
                 HStack(spacing: 20) {
                     ForEach(GuitarSpecs.roots, id: \.self) { root in
                         
-                        let bottomMenulabels = BottomMenuLabels.getLabels(
+                        let bottomMenuLabels = BottomMenuLabels.getLabels(
                             for: root,
                             activeMenu: activeMenu,
                             dropdownChoice: selectedDropdownOption
                         )
                         
-                        let isSelected: Bool = (selectedRoot == root)
+                        let selectedLabel: Bool = (selectedRoot == root)
                         
                         // Highlight selected root
                         Button(action: {
@@ -192,11 +205,11 @@ struct ContentView: View {
                             }
                         })
                         {
-                            Text(bottomMenulabels)
+                            Text(bottomMenuLabels)
                                 .font(.system(.headline))
                                 .frame(width: 70.0, height: 50.0)
                                 .background(Color.white.opacity(0.1))
-                                .foregroundColor(isSelected ? .yellow : .white)
+                                .foregroundColor(selectedLabel ? .yellow : .white)
                                 .cornerRadius(8.0)
                         }
                     }
