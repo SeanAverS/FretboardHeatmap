@@ -71,7 +71,7 @@ struct ContentView: View {
     // topMenuArea Helper for buttons
     private func topMenuButton(_ title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: {
-            withAnimation(.easeIn(duration: 0.2)) {
+            withAnimation(.easeIn(duration: 0.3)) {
                 action()
             }
         }) {
@@ -187,7 +187,7 @@ struct ContentView: View {
                         
                         // Highlight selected root
                         Button(action: {
-                            withAnimation(.easeIn(duration: 0.2)) {
+                            withAnimation(.easeIn(duration: 0.3)) {
                                 selectedRoot = root
                             }
                         })

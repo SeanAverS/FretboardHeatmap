@@ -21,7 +21,7 @@ struct TopMenuDropdown: View {
             if let activeMenu = activeMenu {
                 ForEach(FretPositions.dropdownChoices(for: activeMenu), id: \.self) { dropdownChoice in
                     Button(dropdownChoice) {
-                        withAnimation { self.selectedDropdownOption = dropdownChoice }
+                        withAnimation(.easeIn(duration: 0.3)) { self.selectedDropdownOption = dropdownChoice }
                     }
                 }
             }
