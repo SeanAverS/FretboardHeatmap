@@ -53,12 +53,12 @@ struct ContentView: View {
                     
                     // Chords
                     topMenuButton("CHORDS", isSelected: topMenu == .chords) {
-                        handleActiveMenuSwitch(to: .chords)
+                        keyMatcher(to: .chords)
                     }
 
                     // Scales
                     topMenuButton("SCALES", isSelected: topMenu == .scales) {
-                        handleActiveMenuSwitch(to: .scales)
+                        keyMatcher(to: .scales)
                     }
                 }
                 
@@ -89,7 +89,7 @@ struct ContentView: View {
     }
     
     /// Display same key for new top menu choice
-    private func handleActiveMenuSwitch(to selected: menuChoice) {
+    private func keyMatcher(to selected: menuChoice) {
         guard topMenu != selected else { return } // prevent multiple taps
         
         let sameKey = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, topMenu: selected)
