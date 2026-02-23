@@ -13,7 +13,7 @@ import SwiftUI
 struct ContentView: View {
     // MARK: Main States
     @State private var noteLabels: Bool = false // Toggle label display for notes
-    @State private var activeMenu: menuChoice? = nil // If user is on "CHORDS" or "SCALES" menu
+    @State private var topMenu: menuChoice? = nil // If user is on "CHORDS" or "SCALES" menu
     @State private var selectedRoot: String? = nil // The root a user has chosen
     @State private var selectedDropdownOption: String = "Initial Display" // Dropdown options for selectedRoot
     
@@ -36,7 +36,7 @@ struct ContentView: View {
         .background(Color.black.ignoresSafeArea())
         
         // Haptics
-        .sensoryFeedback(.selection, trigger: activeMenu)
+        .sensoryFeedback(.selection, trigger: topMenu)
         .sensoryFeedback(.selection, trigger: selectedRoot)
 
     }
@@ -52,12 +52,12 @@ struct ContentView: View {
                     }
                     
                     // Chords
-                    topMenuButton("CHORDS", isSelected: activeMenu == .chords) {
+                    topMenuButton("CHORDS", isSelected: topMenu == .chords) {
                         handleActiveMenuSwitch(to: .chords)
                     }
 
                     // Scales
-                    topMenuButton("SCALES", isSelected: activeMenu == .scales) {
+                    topMenuButton("SCALES", isSelected: topMenu == .scales) {
                         handleActiveMenuSwitch(to: .scales)
                     }
                 }
@@ -66,8 +66,8 @@ struct ContentView: View {
                 HStack {
                     Spacer() // position far right
                     
-                    if let activeMenu = activeMenu {
-                        TopMenuDropdown(selectedDropdownOption: $selectedDropdownOption, activeMenu: activeMenu)
+                    if let topMenu = topMenu {
+                        TopMenuDropdown(selectedDropdownOption: $selectedDropdownOption, topMenu: topMenu)
                     }
                 }
             }
@@ -90,11 +90,11 @@ struct ContentView: View {
     
     /// Display same key for new top menu choice
     private func handleActiveMenuSwitch(to selected: menuChoice) {
-        guard activeMenu != selected else { return } // prevent multiple taps
+        guard topMenu != selected else { return } // prevent multiple taps
         
-        let sameKey = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, activeMenu: selected)
+        let sameKey = TopMenuKeyMatcher.getMatch(for: selectedDropdownOption, topMenu: selected)
         
-        activeMenu = selected
+        topMenu = selected
         selectedDropdownOption = sameKey
     }
     
@@ -173,7 +173,7 @@ struct ContentView: View {
     private var heatmapView: some View {
         HeatmapLogic(
             selectedRoot: selectedRoot,
-            activeMenu: activeMenu,
+            topMenu: topMenu,
             selectedDropdownOption: selectedDropdownOption,
             noteLabels: noteLabels,
             frets: GuitarSpecs.frets
@@ -186,13 +186,13 @@ struct ContentView: View {
     /// Generate labels for bottom menu
         @ViewBuilder
         private var bottomMenuArea: some View {
-            if activeMenu != nil {
+            if topMenu != nil {
                 HStack(spacing: 20) {
                     ForEach(GuitarSpecs.roots, id: \.self) { root in
                         
                         let bottomMenuLabels = BottomMenuLabels.getLabels(
                             for: root,
-                            activeMenu: activeMenu,
+                            topMenu: topMenu,
                             dropdownChoice: selectedDropdownOption
                         )
                         

@@ -13,15 +13,15 @@ struct BottomMenuLabels {
     /// Prepare bottom menu labels
     /// - Parameters:
     ///   - root: Root note choice
-    ///   - activeMenu: Top menu choice
+    ///   - topMenu: Top menu choice
     ///   - dropdownChoice: Top menu dropdown choice
     /// - Returns: The right bottom menu labels
     static func getLabels (
         for root: String,
-        activeMenu: menuChoice?,
+        topMenu: menuChoice?,
         dropdownChoice: String
     ) -> String {
-        if minorKeySelected(activeMenu: activeMenu, dropdownChoice: dropdownChoice) {
+        if minorKeySelected(topMenu: topMenu, dropdownChoice: dropdownChoice) {
             return "\(root)m"
         }
         return root
@@ -29,11 +29,11 @@ struct BottomMenuLabels {
     
     /// Prepare bottom menu minor labels
     /// - Parameters:
-    ///   - activeMenu: Top menu choice
+    ///   - topMenu: Top menu choice
     ///   - dropdownChoice: Top menu dropdown choice
     /// - Returns: Minor labels (if needed)
-    private static func minorKeySelected(activeMenu: menuChoice?, dropdownChoice: String) -> Bool {
-            guard let menu = activeMenu else { return false }
+    private static func minorKeySelected(topMenu: menuChoice?, dropdownChoice: String) -> Bool {
+            guard let menu = topMenu else { return false }
             
             let isMinor = dropdownChoice.hasPrefix("Min")
             

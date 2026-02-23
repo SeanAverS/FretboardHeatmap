@@ -10,7 +10,7 @@ import SwiftUI
 /// Calculate and display fret positions on the fretboard
 struct HeatmapLogic: View {
     let selectedRoot: String?
-    let activeMenu: menuChoice?
+    let topMenu: menuChoice?
     let selectedDropdownOption: String
     let noteLabels: Bool
     let frets: [CGFloat]
@@ -38,9 +38,9 @@ struct HeatmapLogic: View {
     ///    - string: The current string
     @ViewBuilder
     private func heatmapFrets(for string: Int) -> some View {
-        if let root = selectedRoot, let activeMenu = activeMenu {
+        if let root = selectedRoot, let topMenu = topMenu {
             // selected root frets
-            let positions = FretPositions.getFretMap(activeMenu: activeMenu, dropdownChoice: selectedDropdownOption, root: root)
+            let positions = FretPositions.getFretMap(topMenu: topMenu, dropdownChoice: selectedDropdownOption, root: root)
             
             // center frets
             ForEach(positions[string] ?? [], id: \.self) { fret in
@@ -76,7 +76,7 @@ struct HeatmapLogic: View {
             root: root,
             string: string,
             fret: fret,
-            activeMenu: activeMenu,
+            topMenu: topMenu,
             dropdown: selectedDropdownOption,
             showLabels: noteLabels)
         .offset(x: centerOfWood - 3.5)
@@ -92,9 +92,9 @@ struct NoteCircle: View {
     let noteLabels: Bool
     
     // labels
-    init(root: String, string: Int, fret: Int, activeMenu: menuChoice?, dropdown: String, showLabels: Bool) {
+    init(root: String, string: Int, fret: Int, topMenu: menuChoice?, dropdown: String, showLabels: Bool) {
         self.rootNoteLabel = RootNotePositions.check(root: root, string: string, fret: fret)
-        self.nonRootNoteLabel = FretLabels.getLabels(activeMenu: activeMenu, root: root, dropdownChoice: dropdown, string: string, fret: fret)
+        self.nonRootNoteLabel = FretLabels.getLabels(topMenu: topMenu, root: root, dropdownChoice: dropdown, string: string, fret: fret)
         self.noteLabels = showLabels
     }
 

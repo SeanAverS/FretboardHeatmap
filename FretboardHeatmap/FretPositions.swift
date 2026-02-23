@@ -18,10 +18,10 @@ struct FretPositions {
     
     /// Prepare dictionaries for top menu dropdown
     /// - Parameters:
-    ///   - activeMenu: Top menu choice
+    ///   - topMenu: Top menu choice
     /// - Returns: Options for right top menu dropdown
-    static func dropdownChoices(for activeMenu: menuChoice) -> [String] {
-        switch activeMenu {
+    static func dropdownChoices(for topMenu: menuChoice) -> [String] {
+        switch topMenu {
         case .chords:
             return Array(chords.keys).sorted()
         case .scales:
@@ -31,14 +31,14 @@ struct FretPositions {
     
     /// Prepare fret notes for heatmap
     /// - Parameters:
-    ///    - activeMenu: Top menu choice
+    ///    - topMenu: Top menu choice
     ///    - dropdownChoice: Top menu dropdown choice
     ///    - root: Root note choice
     /// - Returns: Fret positions for right dropdown and root choice
-    static func getFretMap(activeMenu: menuChoice?, dropdownChoice: String, root: String, ) -> [Int: [Int]] {
-        guard let activeMenu = activeMenu else { return [:] }
+    static func getFretMap(topMenu: menuChoice?, dropdownChoice: String, root: String, ) -> [Int: [Int]] {
+        guard let topMenu = topMenu else { return [:] }
         
-        switch activeMenu {
+        switch topMenu {
         case .chords:
             return chords[dropdownChoice]?[root] ?? [:]
         case .scales:

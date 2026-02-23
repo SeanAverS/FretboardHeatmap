@@ -14,9 +14,9 @@ struct TopMenuKeyMatcher {
     /// - Keeps heatmap and bottom menu display consistent for user
     /// - Parameters:
     ///    - currentOption: The current chord or scale
-    ///    - activeMenu: Top menu choice
+    ///    - topMenu: Top menu choice
     /// - Returns: Equivalent key for the new menu choice
-    static func getMatch(for currentOption: String, activeMenu selected: menuChoice) -> String {
+    static func getMatch(for currentOption: String, topMenu selected: menuChoice) -> String {
         if selected == .scales {
             return chordToScale[currentOption] ?? "Maj Pentatonic"
         } else {
