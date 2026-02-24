@@ -62,14 +62,14 @@ struct HeatmapLogic: View {
     private func centerNotes(root: String, string: Int, fret: Int) -> some View {
         // center of fret
         // total width from fret 1 to current fret
-        let woodDistance = frets.prefix(fret).reduce(0.0, +)
+        let woodDistance: CGFloat = frets.prefix(fret).reduce(0.0, +)
         
         // account for fret 1 to current fret wire widths
-        let wireOffset = CGFloat(fret) * 3.0
+        let wireOffset: CGFloat = CGFloat(fret) * 3.0
         
         // - half of current frets rightmost edge
-        let thisFretWidth = frets[fret - 1]
-        let centerOfWood = (woodDistance + wireOffset) - (thisFretWidth / 2.0)
+        let thisFretWidth: CGFloat = frets[fret - 1]
+        let centerOfWood: CGFloat = (woodDistance + wireOffset) - (thisFretWidth / 2.0)
         
         // center of labels
         NoteCircle(
@@ -113,4 +113,7 @@ struct NoteCircle: View {
                 }
             }
     }
+}
+#Preview {
+    ContentView()
 }
