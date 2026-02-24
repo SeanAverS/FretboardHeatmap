@@ -35,7 +35,7 @@ struct FretPositions {
     ///    - dropdownChoice: Top menu dropdown choice
     ///    - root: Root note choice
     /// - Returns: Fret positions for right dropdown and root choice
-    static func getFretMap(topMenu: menuChoice?, dropdownChoice: String, root: String, ) -> [Int: [Int]] {
+    static func getFretMap(topMenu: menuChoice?, dropdownChoice: String, root: String) -> [Int: [Int]] {
         guard let topMenu = topMenu else { return [:] }
         
         switch topMenu {
