@@ -78,7 +78,9 @@ struct HeatmapLogic: View {
             fret: fret,
             topMenu: topMenu,
             dropdown: selectedDropdownOption,
-            showLabels: noteLabels)
+            showLabels: noteLabels
+        )
+        
         .offset(x: centerOfWood - 3.5)
         .transition(.opacity.combined(with: .scale))
     }
