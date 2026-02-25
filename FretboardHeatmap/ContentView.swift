@@ -36,8 +36,9 @@ struct ContentView: View {
         .background(Color.black.ignoresSafeArea())
         
         // Haptics
-        .sensoryFeedback(.selection, trigger: topMenu)
-        .sensoryFeedback(.selection, trigger: selectedRoot)
+        .sensoryFeedback(.impact(weight: .heavy, intensity: 1.0), trigger: noteLabels)
+        .sensoryFeedback(.impact(weight: .medium, intensity: 1.0), trigger: topMenu)
+        .sensoryFeedback(.impact(weight: .heavy, intensity: 1.0), trigger: selectedRoot)
 
     }
     
